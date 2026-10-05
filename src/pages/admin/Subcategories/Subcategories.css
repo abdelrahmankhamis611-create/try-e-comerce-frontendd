@@ -1,0 +1,550 @@
+.admin-subcategories-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.admin-subcategories-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 600px;
+}
+
+.admin-subcategories-search input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  color: #0f172a;
+  background: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-subcategories-search input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.admin-subcategories-category-filter {
+  min-width: 180px;
+  padding: 11px 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  color: #334155;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.admin-subcategories-category-filter:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* =========================
+   Buttons
+========================= */
+
+.admin-secondary-button,
+.admin-primary-button,
+.admin-edit-button,
+.admin-delete-button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.admin-secondary-button {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.admin-secondary-button:hover {
+  background: #e2e8f0;
+}
+
+.admin-primary-button {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.admin-primary-button:hover {
+  background: #1d4ed8;
+}
+
+.admin-edit-button {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.admin-edit-button:hover {
+  background: #bae6fd;
+}
+
+.admin-delete-button {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.admin-delete-button:hover {
+  background: #fecaca;
+}
+
+.admin-secondary-button:disabled,
+.admin-primary-button:disabled,
+.admin-edit-button:disabled,
+.admin-delete-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* =========================
+   Table
+========================= */
+
+.admin-subcategories-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.admin-subcategories-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+}
+
+.admin-subcategories-table th {
+  padding: 14px 16px;
+  text-align: left;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 700;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-subcategories-table td {
+  padding: 14px 16px;
+  color: #334155;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.admin-subcategories-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-subcategories-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* =========================
+   Actions
+========================= */
+
+.admin-subcategory-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =========================
+   Pagination
+========================= */
+
+.admin-subcategories-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.admin-subcategories-pagination button {
+  border: 1px solid #d9d9d9;
+  background: #ffffff;
+  color: #334155;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.admin-subcategories-pagination button:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.admin-subcategories-pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.admin-subcategories-pagination span {
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================
+   Modal
+========================= */
+
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.admin-modal {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.admin-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-modal-header h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 20px;
+}
+
+.admin-modal-close {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.admin-modal-close:hover {
+  background: #e2e8f0;
+}
+
+/* =========================
+   Form
+========================= */
+
+.admin-subcategory-form {
+  padding: 20px;
+}
+
+.admin-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.admin-form-group label {
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-form-group input,
+.admin-form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  color: #0f172a;
+  background: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-form-group input:focus,
+.admin-form-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.admin-form-group select {
+  cursor: pointer;
+}
+
+/* =========================
+   Modal Actions
+========================= */
+
+.admin-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+/* =========================
+   Messages
+========================= */
+
+.admin-loading-message,
+.admin-error-message,
+.admin-empty-state {
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.admin-loading-message {
+  background: #f8fafc;
+  color: #475569;
+}
+
+.admin-error-message {
+  margin-bottom: 20px;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.admin-empty-state {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+}
+
+.admin-empty-state h3 {
+  margin: 0 0 8px;
+  color: #334155;
+}
+
+.admin-empty-state p {
+  margin: 0;
+  color: #64748b;
+}
+
+/* =========================
+   Responsive - Cards
+========================= */
+
+@media (max-width: 1110px) {
+  .admin-subcategories-table-wrapper {
+    overflow: hidden;
+  }
+
+  .admin-subcategories-table {
+    width: 100%;
+    min-width: 0;
+    display: block;
+  }
+
+  .admin-subcategories-table thead {
+    display: none;
+  }
+
+  .admin-subcategories-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-subcategories-table tbody tr {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .admin-subcategories-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .admin-subcategories-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-width: 0;
+    padding: 9px 0;
+    border: none;
+    box-sizing: border-box;
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  .admin-subcategories-table td::before {
+    flex: 0 0 auto;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  /* # */
+  .admin-subcategories-table td:nth-child(1)::before {
+    content: "#";
+  }
+
+  /* Name */
+  .admin-subcategories-table td:nth-child(2)::before {
+    content: "Name";
+  }
+
+  /* Category */
+  .admin-subcategories-table td:nth-child(3)::before {
+    content: "Category";
+  }
+
+  /* Slug */
+  .admin-subcategories-table td:nth-child(4)::before {
+    content: "Slug";
+  }
+
+  /* Created At */
+  .admin-subcategories-table td:nth-child(5)::before {
+    content: "Created";
+  }
+
+  /* Actions */
+  .admin-subcategories-table td:nth-child(6) {
+    display: block;
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .admin-subcategories-table td:nth-child(6)::before {
+    content: "Actions";
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .admin-subcategories-table td > * {
+    min-width: 0;
+    max-width: 70%;
+  }
+
+  .admin-subcategories-table td:nth-child(2),
+  .admin-subcategories-table td:nth-child(3),
+  .admin-subcategories-table td:nth-child(4) {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .admin-subcategory-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .admin-edit-button,
+  .admin-delete-button {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 10px 12px;
+  }
+}
+
+/* =========================
+   Smaller Screens
+========================= */
+
+@media (max-width: 700px) {
+  .admin-subcategories-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-subcategories-search {
+    max-width: none;
+  }
+
+  .admin-subcategories-category-filter {
+    width: 100%;
+  }
+
+  .admin-modal-overlay {
+    align-items: flex-start;
+    padding-top: 40px;
+    overflow-y: auto;
+  }
+
+  .admin-modal {
+    max-width: 100%;
+  }
+
+  .admin-subcategories-table tbody tr {
+    padding: 18px;
+  }
+}
+
+/* =========================
+   Small Mobile
+========================= */
+
+@media (max-width: 400px) {
+  .admin-subcategories-table tbody tr {
+    padding: 15px;
+  }
+
+  .admin-subcategories-table td {
+    gap: 12px;
+    font-size: 13px;
+  }
+
+  .admin-subcategories-table td::before {
+    font-size: 12px;
+  }
+
+  .admin-subcategories-table td > * {
+    max-width: 65%;
+  }
+
+  .admin-edit-button,
+  .admin-delete-button {
+    font-size: 13px;
+    padding: 9px 6px;
+  }

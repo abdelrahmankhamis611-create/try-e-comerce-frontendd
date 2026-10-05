@@ -1,0 +1,485 @@
+.navbar {
+  width: 100%;
+  background-color: #111827;
+  border-bottom: 1px solid #1f2937;
+}
+
+.navbar-container {
+  max-width: 1400px;
+  min-height: 70px;
+  margin: 0 auto;
+  padding: 0 30px;
+
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Logo */
+
+.navbar-logo {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition: color 0.2s ease;
+}
+
+.navbar-logo:hover {
+  color: #f97316;
+}
+
+/* Search */
+
+.navbar-search {
+  flex: 1;
+
+  max-width: 500px;
+
+  height: 40px;
+
+  display: flex;
+  align-items: stretch;
+
+  background-color: #ffffff;
+
+  border-radius: 7px;
+
+  overflow: hidden;
+}
+
+.navbar-search input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 0 14px;
+
+  border: none;
+  outline: none;
+
+  background-color: #ffffff;
+  color: #111827;
+
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.navbar-search input::placeholder {
+  color: #9ca3af;
+}
+
+.navbar-search button {
+  width: 48px;
+
+  border: none;
+
+  background-color: #f97316;
+  color: #ffffff;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease;
+}
+
+.navbar-search button:hover {
+  background-color: #ea580c;
+}
+
+/* Navigation */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 20px;
+}
+
+.navbar-links a {
+  color: #d1d5db;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+.navbar-links a:hover {
+  color: #f97316;
+}
+
+/* Cart & Wishlist */
+
+.navbar-cart-link,
+.navbar-wishlist-link {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  color: #d1d5db;
+}
+
+.navbar-cart-link:hover,
+.navbar-wishlist-link:hover {
+  color: #f97316;
+}
+
+/* Icon Wrapper */
+
+.navbar-icon-wrapper {
+  position: relative;
+
+  width: 24px;
+  height: 24px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+/* Icon */
+
+.navbar-icon {
+  width: 24px;
+  height: 24px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Count */
+
+.navbar-count {
+  position: absolute;
+
+  top: -7px;
+  right: -8px;
+
+  min-width: 17px;
+  height: 17px;
+
+  padding: 0 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  background-color: #f97316;
+  color: #ffffff;
+
+  border: 2px solid #111827;
+
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+
+  box-sizing: border-box;
+}
+
+/* Account */
+
+.navbar-account {
+  position: relative;
+}
+
+.navbar-account-button {
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 4px 9px 4px 5px;
+
+  border: 1px solid #374151;
+  border-radius: 8px;
+
+  background-color: #1f2937;
+  color: #ffffff;
+
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.navbar-account-button:hover {
+  background-color: #273449;
+  border-color: #4b5563;
+}
+
+.navbar-account-avatar {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: #f97316;
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.navbar-account-name {
+  max-width: 110px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.navbar-account-arrow {
+  color: #9ca3af;
+  font-size: 9px;
+}
+
+/* Account Dropdown */
+
+.navbar-account-menu {
+  position: absolute;
+
+  top: calc(100% + 10px);
+  right: 0;
+
+  width: 230px;
+
+  padding: 8px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.15);
+
+  z-index: 1000;
+}
+
+.navbar-account-menu-header {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  padding: 10px 11px 12px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar-account-menu-header strong {
+  color: #111827;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navbar-account-menu-header span {
+  color: #6b7280;
+
+  font-size: 12px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navbar-account-menu a {
+  display: block;
+
+  margin-top: 4px;
+
+  padding: 10px 11px;
+
+  border-radius: 7px;
+
+  color: #374151;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.navbar-account-menu a:hover {
+  background-color: #f3f4f6;
+  color: #f97316;
+}
+
+.navbar-account-menu button {
+  width: 100%;
+
+  margin-top: 4px;
+
+  padding: 10px 11px;
+
+  border: none;
+  border-radius: 7px;
+
+  background-color: transparent;
+  color: #dc2626;
+
+  font-family: inherit;
+
+  text-align: left;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.navbar-account-menu button:hover {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+/* Tablet */
+
+@media (max-width: 1100px) {
+  .navbar-container {
+    gap: 16px;
+  }
+
+  .navbar-search {
+    max-width: 360px;
+  }
+
+  .navbar-links {
+    gap: 12px;
+  }
+
+  .navbar-account-name {
+    max-width: 80px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 800px) {
+  .navbar-container {
+    min-height: auto;
+
+    padding: 15px 20px;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+  }
+
+  .navbar-logo {
+    order: 1;
+  }
+
+  .navbar-account {
+    order: 2;
+  }
+
+  .navbar-search {
+    order: 3;
+
+    width: 100%;
+    max-width: none;
+  }
+
+  .navbar-links {
+    order: 4;
+
+    width: 100%;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+  }
+
+  .navbar-account-name {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar-container {
+    padding: 14px 15px;
+  }
+
+  .navbar-logo {
+    font-size: 20px;
+  }
+
+  .navbar-search {
+    height: 38px;
+  }
+
+  .navbar-search input {
+    font-size: 13px;
+  }
+
+  .navbar-search button {
+    width: 44px;
+  }
+
+  .navbar-links {
+    gap: 8px;
+  }
+
+  .navbar-links > a {
+    font-size: 12px;
+  }
+
+  .navbar-account-button {
+    height: 38px;
+  }
+
+  .navbar-account-avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .navbar-account-menu {
+    right: -5px;
+    width: 215px;
+  }
+}

@@ -1,0 +1,185 @@
+/* =========================
+   Footer
+========================= */
+
+.footer {
+  margin-top: 60px;
+
+  background-color: #111827;
+  color: #ffffff;
+}
+
+/* =========================
+   Main Footer
+========================= */
+
+.footer-main {
+  max-width: 1400px;
+
+  margin: 0 auto;
+  padding: 60px 40px;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 50px;
+}
+
+/* =========================
+   Footer Columns
+========================= */
+
+.footer-column h3 {
+  margin: 0 0 20px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  color: #ffffff;
+}
+
+.footer-column ul {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.footer-column li {
+  margin-bottom: 12px;
+}
+
+.footer-column a {
+  color: #d1d5db;
+  text-decoration: none;
+
+  font-size: 14px;
+
+  transition:
+    color 0.2s ease,
+    padding-left 0.2s ease;
+}
+
+.footer-column a:hover {
+  color: #fb923c;
+  padding-left: 4px;
+}
+
+/* =========================
+   About
+========================= */
+
+.footer-about {
+  max-width: 320px;
+}
+
+.footer-logo {
+  display: inline-flex;
+  flex-direction: column;
+
+  margin-bottom: 18px;
+
+  text-decoration: none;
+  line-height: 1;
+}
+
+.footer-logo-main {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -1px;
+
+  color: #ffffff;
+}
+
+.footer-logo-sub {
+  margin-top: 5px;
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+
+  color: #f97316;
+}
+
+.footer-about p {
+  margin: 0;
+
+  color: #9ca3af;
+
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* =========================
+   Contact
+========================= */
+
+.footer-contact p {
+  margin: 0 0 12px;
+
+  color: #d1d5db;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================
+   Bottom
+========================= */
+
+.footer-bottom {
+  border-top: 1px solid #374151;
+
+  padding: 20px 40px;
+
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+
+  color: #9ca3af;
+
+  font-size: 13px;
+}
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 900px) {
+  .footer-main {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 40px;
+
+    padding: 50px 30px;
+  }
+
+  .footer-about {
+    max-width: none;
+  }
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 600px) {
+  .footer-main {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+
+    padding: 45px 20px;
+  }
+
+  .footer-about {
+    max-width: 100%;
+  }
+
+  .footer-bottom {
+    padding: 18px 20px;
+  }
+}
