@@ -2,14 +2,14 @@
    USERS PAGE
    ========================================================= */
 
-.members-page {
+.users-page {
   min-height: 100vh;
   padding: 32px;
   background: #f3f4f6;
   box-sizing: border-box;
 }
 
-.members-shell {
+.users-shell {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
@@ -20,7 +20,7 @@
    TOP BAR
    ========================================================= */
 
-.members-topbar {
+.users-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,7 +28,7 @@
   margin-bottom: 28px;
 }
 
-.members-topbar h1 {
+.users-topbar h1 {
   margin: 0;
   color: #111827;
   font-size: 30px;
@@ -36,19 +36,19 @@
   line-height: 1.2;
 }
 
-.members-topbar p {
+.users-topbar p {
   margin: 8px 0 0;
   color: #6b7280;
   font-size: 15px;
 }
 
-.members-toolbar {
+.users-toolbar {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.members-total {
+.users-total {
   padding: 11px 16px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
@@ -59,7 +59,7 @@
   white-space: nowrap;
 }
 
-.members-add-btn {
+.users-add-btn {
   min-height: 42px;
   padding: 0 18px;
   border: 0;
@@ -72,12 +72,12 @@
   transition: 0.2s ease;
 }
 
-.members-add-btn:hover:not(:disabled) {
+.users-add-btn:hover:not(:disabled) {
   background: #1f2937;
   transform: translateY(-1px);
 }
 
-.members-add-btn:disabled {
+.users-add-btn:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
@@ -87,7 +87,7 @@
    ERROR
    ========================================================= */
 
-.members-error {
+.users-error {
   margin-bottom: 20px;
   padding: 14px 16px;
   border: 1px solid #fecaca;
@@ -102,7 +102,7 @@
    CONTENT
    ========================================================= */
 
-.members-content {
+.users-content {
   width: 100%;
   overflow: hidden;
   border: 1px solid #e5e7eb;
@@ -111,7 +111,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-.members-content-heading {
+.users-content-heading {
   display: flex;
   align-items: center;
   min-height: 64px;
@@ -119,14 +119,14 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.members-content-heading h2 {
+.users-content-heading h2 {
   margin: 0;
   color: #111827;
   font-size: 18px;
   font-weight: 650;
 }
 
-.members-status {
+.users-status {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,21 +141,21 @@
    TABLE
    ========================================================= */
 
-.members-table-box {
+.users-table-box {
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
-.members-table {
+.users-table {
   width: 100%;
   min-width: 1050px;
   border-collapse: collapse;
   table-layout: auto;
 }
 
-.members-table th {
+.users-table th {
   height: 52px;
   padding: 0 16px;
   border-bottom: 1px solid #e5e7eb;
@@ -168,7 +168,7 @@
   white-space: nowrap;
 }
 
-.members-table td {
+.users-table td {
   height: 62px;
   padding: 10px 16px;
   border-bottom: 1px solid #f0f0f0;
@@ -178,19 +178,19 @@
   white-space: nowrap;
 }
 
-.members-table tbody tr {
+.users-table tbody tr {
   transition: background 0.15s ease;
 }
 
-.members-table tbody tr:hover {
+.users-table tbody tr:hover {
   background: #f9fafb;
 }
 
-.members-table tbody tr:last-child td {
+.users-table tbody tr:last-child td {
   border-bottom: 0;
 }
 
-.members-table td strong {
+.users-table td strong {
   color: #111827;
   font-weight: 600;
 }
@@ -200,7 +200,7 @@
    ACTIONS
    ========================================================= */
 
-.members-actions {
+.users-actions {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -208,8 +208,8 @@
   white-space: nowrap;
 }
 
-.members-edit-btn,
-.members-delete-btn {
+.users-edit-btn,
+.users-delete-btn {
   min-width: 68px;
   height: 34px;
   padding: 0 11px;
@@ -220,30 +220,30 @@
   transition: 0.2s ease;
 }
 
-.members-edit-btn {
+.users-edit-btn {
   border: 1px solid #d1d5db;
   background: #ffffff;
   color: #374151;
 }
 
-.members-edit-btn:hover:not(:disabled) {
+.users-edit-btn:hover:not(:disabled) {
   border-color: #9ca3af;
   background: #f9fafb;
 }
 
-.members-delete-btn {
+.users-delete-btn {
   border: 1px solid #fecaca;
   background: #ffffff;
   color: #dc2626;
 }
 
-.members-delete-btn:hover:not(:disabled) {
+.users-delete-btn:hover:not(:disabled) {
   border-color: #fca5a5;
   background: #fef2f2;
 }
 
-.members-edit-btn:disabled,
-.members-delete-btn:disabled {
+.users-edit-btn:disabled,
+.users-delete-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -253,7 +253,7 @@
    MODAL OVERLAY
    ========================================================= */
 
-.members-modal-layer {
+.users-modal-layer {
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -275,7 +275,7 @@
    MODAL
    ========================================================= */
 
-.members-modal {
+.users-modal {
   width: 100%;
   max-width: 540px;
   max-height: calc(100vh - 48px);
@@ -300,7 +300,7 @@
    MODAL HEADER
    ========================================================= */
 
-.members-modal-head {
+.users-modal-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -311,20 +311,20 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.members-modal-head h2 {
+.users-modal-head h2 {
   margin: 0;
   color: #111827;
   font-size: 21px;
   font-weight: 700;
 }
 
-.members-modal-head p {
+.users-modal-head p {
   margin: 6px 0 0;
   color: #6b7280;
   font-size: 13px;
 }
 
-.members-close-btn {
+.users-close-btn {
   flex-shrink: 0;
 
   width: 34px;
@@ -346,12 +346,12 @@
   transition: 0.2s ease;
 }
 
-.members-close-btn:hover:not(:disabled) {
+.users-close-btn:hover:not(:disabled) {
   background: #f3f4f6;
   color: #111827;
 }
 
-.members-close-btn:disabled {
+.users-close-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -361,7 +361,7 @@
    FORM
    ========================================================= */
 
-.members-form {
+.users-form {
   display: flex;
   flex-direction: column;
   gap: 17px;
@@ -369,20 +369,20 @@
   padding: 24px;
 }
 
-.members-field {
+.users-field {
   display: flex;
   flex-direction: column;
   gap: 7px;
 }
 
-.members-field label {
+.users-field label {
   color: #374151;
   font-size: 13px;
   font-weight: 600;
 }
 
-.members-field input,
-.members-field select {
+.users-field input,
+.users-field select {
   width: 100%;
   height: 44px;
 
@@ -406,18 +406,18 @@
     box-shadow 0.2s ease;
 }
 
-.members-field input::placeholder {
+.users-field input::placeholder {
   color: #9ca3af;
 }
 
-.members-field input:focus,
-.members-field select:focus {
+.users-field input:focus,
+.users-field select:focus {
   border-color: #6b7280;
   box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.12);
 }
 
-.members-field input:disabled,
-.members-field select:disabled {
+.users-field input:disabled,
+.users-field select:disabled {
   background: #f3f4f6;
   cursor: not-allowed;
 }
@@ -427,7 +427,7 @@
    MODAL BUTTONS
    ========================================================= */
 
-.members-modal-buttons {
+.users-modal-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
@@ -438,8 +438,8 @@
   border-top: 1px solid #e5e7eb;
 }
 
-.members-cancel-btn,
-.members-save-btn {
+.users-cancel-btn,
+.users-save-btn {
   min-width: 110px;
   height: 42px;
 
@@ -455,28 +455,28 @@
   transition: 0.2s ease;
 }
 
-.members-cancel-btn {
+.users-cancel-btn {
   border: 1px solid #d1d5db;
   background: #ffffff;
   color: #374151;
 }
 
-.members-cancel-btn:hover:not(:disabled) {
+.users-cancel-btn:hover:not(:disabled) {
   background: #f9fafb;
 }
 
-.members-save-btn {
+.users-save-btn {
   border: 1px solid #111827;
   background: #111827;
   color: #ffffff;
 }
 
-.members-save-btn:hover:not(:disabled) {
+.users-save-btn:hover:not(:disabled) {
   background: #1f2937;
 }
 
-.members-cancel-btn:disabled,
-.members-save-btn:disabled {
+.users-cancel-btn:disabled,
+.users-save-btn:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
@@ -487,15 +487,15 @@
    ========================================================= */
 
 @media (max-width: 1110px) {
-  .members-page {
+  .users-page {
     padding: 24px;
   }
 
-  .members-table {
+  .users-table {
     min-width: 1050px;
   }
 
-  .members-content {
+  .users-content {
     border-radius: 9px;
   }
 }
@@ -506,66 +506,66 @@
    ========================================================= */
 
 @media (max-width: 768px) {
-  .members-page {
+  .users-page {
     padding: 18px 14px;
   }
 
-  .members-topbar {
+  .users-topbar {
     align-items: flex-start;
     flex-direction: column;
     gap: 18px;
   }
 
-  .members-topbar h1 {
+  .users-topbar h1 {
     font-size: 25px;
   }
 
-  .members-toolbar {
+  .users-toolbar {
     width: 100%;
     justify-content: space-between;
   }
 
-  .members-total {
+  .users-total {
     flex: 1;
   }
 
-  .members-add-btn {
+  .users-add-btn {
     flex-shrink: 0;
   }
 
-  .members-content-heading {
+  .users-content-heading {
     padding: 0 16px;
   }
 
-  .members-table {
+  .users-table {
     min-width: 1050px;
   }
 
-  .members-modal-layer {
+  .users-modal-layer {
     align-items: flex-start;
     padding: 14px;
   }
 
-  .members-modal {
+  .users-modal {
     max-height: calc(100vh - 28px);
     border-radius: 10px;
   }
 
-  .members-modal-head {
+  .users-modal-head {
     padding: 18px;
   }
 
-  .members-form {
+  .users-form {
     gap: 15px;
     padding: 18px;
   }
 
-  .members-modal-buttons {
+  .users-modal-buttons {
     flex-direction: column-reverse;
   }
 
-  .members-cancel-btn,
-  .members-save-btn {
+  .users-cancel-btn,
+  .users-save-btn {
     width: 100%;
   }
 }
@@ -576,63 +576,63 @@
    ========================================================= */
 
 @media (max-width: 480px) {
-  .members-page {
+  .users-page {
     padding: 14px 10px;
   }
 
-  .members-topbar h1 {
+  .users-topbar h1 {
     font-size: 23px;
   }
 
-  .members-topbar p {
+  .users-topbar p {
     font-size: 13px;
   }
 
-  .members-toolbar {
+  .users-toolbar {
     align-items: stretch;
     flex-direction: column;
   }
 
-  .members-total {
+  .users-total {
     width: 100%;
     box-sizing: border-box;
     text-align: center;
   }
 
-  .members-add-btn {
+  .users-add-btn {
     width: 100%;
   }
 
-  .members-content-heading {
+  .users-content-heading {
     min-height: 58px;
   }
 
-  .members-content-heading h2 {
+  .users-content-heading h2 {
     font-size: 16px;
   }
 
-  .members-modal-layer {
+  .users-modal-layer {
     padding: 10px;
   }
 
-  .members-modal {
+  .users-modal {
     max-height: calc(100vh - 20px);
   }
 
-  .members-modal-head {
+  .users-modal-head {
     padding: 16px;
   }
 
-  .members-modal-head h2 {
+  .users-modal-head h2 {
     font-size: 19px;
   }
 
-  .members-form {
+  .users-form {
     padding: 16px;
   }
 
-  .members-field input,
-  .members-field select {
+  .users-field input,
+  .users-field select {
     height: 42px;
   }
 }

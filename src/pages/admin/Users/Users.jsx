@@ -301,10 +301,10 @@ function Users() {
   };
 
   return (
-    <main className="members-page">
-      <div className="members-shell">
+    <main className="users-page">
+      <div className="users-shell">
 
-        <div className="members-topbar">
+        <div className="users-topbar">
           <div>
             <h1>Users</h1>
 
@@ -313,15 +313,15 @@ function Users() {
             </p>
           </div>
 
-          <div className="members-toolbar">
+          <div className="users-toolbar">
 
-            <div className="members-total">
+            <div className="users-total">
               {users.length} Users
             </div>
 
             <button
               type="button"
-              className="members-add-btn"
+              className="users-add-btn"
               onClick={openCreateModal}
               disabled={
                 creating ||
@@ -336,29 +336,29 @@ function Users() {
         </div>
 
         {error && (
-          <div className="members-error">
+          <div className="users-error">
             {error}
           </div>
         )}
 
-        <section className="members-content">
+        <section className="users-content">
 
-          <div className="members-content-heading">
+          <div className="users-content-heading">
             <h2>All Users</h2>
           </div>
 
           {loading && users.length === 0 ? (
-            <div className="members-status">
+            <div className="users-status">
               Loading users...
             </div>
           ) : users.length === 0 ? (
-            <div className="members-status">
+            <div className="users-status">
               No users found.
             </div>
           ) : (
-            <div className="members-table-box">
+            <div className="users-table-box">
 
-              <table className="members-table">
+              <table className="users-table">
 
                 <thead>
                   <tr>
@@ -417,11 +417,11 @@ function Users() {
 
                         <td>
 
-                          <div className="members-actions">
+                          <div className="users-actions">
 
                             <button
                               type="button"
-                              className="members-edit-btn"
+                              className="users-edit-btn"
                               onClick={() =>
                                 openEditModal(currentUser)
                               }
@@ -436,7 +436,7 @@ function Users() {
 
                             <button
                               type="button"
-                              className="members-delete-btn"
+                              className="users-delete-btn"
                               onClick={() =>
                                 handleDelete(currentUser)
                               }
@@ -471,11 +471,11 @@ function Users() {
       </div>
 
       {showCreateModal && (
-        <div className="members-modal-layer">
+        <div className="users-modal-layer">
 
-          <div className="members-modal">
+          <div className="users-modal">
 
-            <div className="members-modal-head">
+            <div className="users-modal-head">
 
               <div>
                 <h2>
@@ -489,7 +489,7 @@ function Users() {
 
               <button
                 type="button"
-                className="members-close-btn"
+                className="users-close-btn"
                 onClick={closeCreateModal}
                 disabled={creating}
               >
@@ -499,11 +499,11 @@ function Users() {
             </div>
 
             <form
-              className="members-form"
+              className="users-form"
               onSubmit={handleCreateSubmit}
             >
 
-              <div className="members-field">
+              <div className="users-field">
                 <label htmlFor="create-user-name">
                   Name
                 </label>
@@ -520,7 +520,7 @@ function Users() {
                 />
               </div>
 
-              <div className="members-field">
+              <div className="users-field">
                 <label htmlFor="create-user-email">
                   Email
                 </label>
@@ -537,7 +537,7 @@ function Users() {
                 />
               </div>
 
-              <div className="members-field">
+              <div className="users-field">
                 <label htmlFor="create-user-password">
                   Password
                 </label>
@@ -554,7 +554,7 @@ function Users() {
                 />
               </div>
 
-              <div className="members-field">
+              <div className="users-field">
                 <label htmlFor="create-user-password-confirm">
                   Confirm Password
                 </label>
@@ -573,7 +573,7 @@ function Users() {
                 />
               </div>
 
-              <div className="members-field">
+              <div className="users-field">
                 <label htmlFor="create-user-phone">
                   Phone
                 </label>
@@ -590,7 +590,7 @@ function Users() {
                 />
               </div>
 
-              <div className="members-field">
+              <div className="users-field">
                 <label htmlFor="create-user-role">
                   Role
                 </label>
@@ -617,11 +617,11 @@ function Users() {
                 </select>
               </div>
 
-              <div className="members-modal-buttons">
+              <div className="users-modal-buttons">
 
                 <button
                   type="button"
-                  className="members-cancel-btn"
+                  className="users-cancel-btn"
                   onClick={closeCreateModal}
                   disabled={creating}
                 >
@@ -630,7 +630,7 @@ function Users() {
 
                 <button
                   type="submit"
-                  className="members-save-btn"
+                  className="users-save-btn"
                   disabled={creating}
                 >
                   {creating
@@ -648,11 +648,11 @@ function Users() {
       )}
 
       {showEditModal && (
-        <div className="members-modal-layer">
+        <div className="users-modal-layer">
 
-          <div className="members-modal">
+          <div className="users-modal">
 
-            <div className="members-modal-head">
+            <div className="users-modal-head">
 
               <div>
                 <h2>
@@ -666,7 +666,7 @@ function Users() {
 
               <button
                 type="button"
-                className="members-close-btn"
+                className="users-close-btn"
                 onClick={closeEditModal}
                 disabled={saving}
               >
@@ -676,11 +676,11 @@ function Users() {
             </div>
 
             <form
-              className="members-form"
+              className="users-form"
               onSubmit={handleSubmit}
             >
 
-              <div className="members-field">
+              <div className="users-field">
                 <label htmlFor="user-name">
                   Name
                 </label>
@@ -697,7 +697,7 @@ function Users() {
                 />
               </div>
 
-              <div className="members-field">
+              <div className="users-field">
                 <label htmlFor="user-email">
                   Email
                 </label>
@@ -714,7 +714,7 @@ function Users() {
                 />
               </div>
 
-              <div className="members-field">
+              <div className="users-field">
                 <label htmlFor="user-phone">
                   Phone
                 </label>
@@ -731,7 +731,7 @@ function Users() {
                 />
               </div>
 
-              <div className="members-field">
+              <div className="users-field">
                 <label htmlFor="user-role">
                   Role
                 </label>
@@ -758,11 +758,11 @@ function Users() {
                 </select>
               </div>
 
-              <div className="members-modal-buttons">
+              <div className="users-modal-buttons">
 
                 <button
                   type="button"
-                  className="members-cancel-btn"
+                  className="users-cancel-btn"
                   onClick={closeEditModal}
                   disabled={saving}
                 >
@@ -771,7 +771,7 @@ function Users() {
 
                 <button
                   type="submit"
-                  className="members-save-btn"
+                  className="users-save-btn"
                   disabled={saving}
                 >
                   {saving
