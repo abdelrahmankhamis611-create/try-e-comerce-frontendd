@@ -1,35 +1,33 @@
-
-.admin-users-page {
-  background: red !important;
-  min-height: 100vh !important;
-  padding: 50px !important;
+.admin-users-css-test {
+background: red !important;
+min-height: 100vh !important;
+padding: 50px !important;
 }
 
-.admin-users-container {
-  background: yellow !important;
-  padding: 50px !important;
+.admin-users-css-test .admin-users-container {
+background: yellow !important;
+padding: 50px !important;
 }
 
-.admin-users-header {
-  background: blue !important;
-  color: white !important;
-  padding: 30px !important;
+.admin-users-css-test .admin-users-header {
+background: blue !important;
+color: white !important;
+padding: 30px !important;
 }
 
-.admin-users-header h1 {
-  color: white !important;
-  font-size: 40px !important;
+.admin-users-css-test .admin-users-header h1 {
+color: white !important;
+font-size: 40px !important;
 }
 
-.users-list-section {
-  background: green !important;
-  padding: 30px !important;
-  margin-top: 30px !important;
+.admin-users-css-test .users-list-section {
+background: green !important;
+padding: 30px !important;
+margin-top: 30px !important;
 }
 
-.admin-user-add-button {
-  background: black !important;
-  color: white !important;
-  padding: 20px !important;
+.admin-users-css-test .admin-user-add-button {
+background: black !important;
+color: white !important;
+padding: 20px !important;
 }
-
