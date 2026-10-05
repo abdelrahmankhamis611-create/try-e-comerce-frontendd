@@ -1,6 +1,3 @@
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-
 import {
   getSubCategories,
   getSubCategoriesByCategory,
@@ -8,11 +5,11 @@ import {
   createSubCategory,
   updateSubCategory,
   deleteSubCategory,
-} from "../api/subCategoryApi";
+} from "../api/subcategoryApi";
 
 import {
   subCategoryActions,
-} from "../subCategorySlice";
+} from "../subcategorySlice";
 
 function useSubCategories() {
   const dispatch = useDispatch();
