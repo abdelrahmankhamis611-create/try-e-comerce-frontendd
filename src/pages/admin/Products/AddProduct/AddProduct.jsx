@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import useCategories from "../../../../features/categories/hooks/useCategories";
-import useSubCategories from "../../../../features/subCategories/hooks/useSubCategories";
+import useSubCategories from "../../../../features/subcategories/hooks/useSubCategories";
 import useBrands from "../../../../features/brands/hooks/useBrands";
 import useProducts from "../../../../features/products/hooks/useProducts";
 

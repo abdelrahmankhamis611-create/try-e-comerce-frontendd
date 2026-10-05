@@ -5,7 +5,7 @@ import cartReducer from "../../features/cart/cartSlice";
 import wishlistReducer from "../../features/wishlist/wishlistSlice";
 import productReducer from "../../features/products/productSlice";
 import categoryReducer from "../../features/categories/categorySlice";
-import subCategoryReducer from "../../features/subCategories/subcategorySlice";
+import subCategoryReducer from "../../features/subcategories/subcategorySlice";
 import orderReducer from "../../features/orders/orderSlice";
 import brandReducer from "../../features/brands/brandSlice";
 import userAdminReducer from "../../features/adminUsers/userAdminSlice";

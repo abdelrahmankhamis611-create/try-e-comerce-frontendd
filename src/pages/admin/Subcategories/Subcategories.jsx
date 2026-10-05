@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
-import useSubCategories from "../../../features/subCategories/hooks/useSubCategories";
+import useSubCategories from "../../../features/subcategories/hooks/useSubCategories";
 import useCategories from "../../../features/categories/hooks/useCategories";
 
 import "./Subcategories.css";

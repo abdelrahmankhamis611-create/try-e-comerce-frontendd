@@ -8,7 +8,7 @@ import { getUsers } from "../../../features/adminUsers/api/userAdminApi";
 import { getOrders } from "../../../features/orders/api/orderApi";
 import { getCategories } from "../../../features/categories/api/categoryApi";
 import { getBrands } from "../../../features/brands/api/brandApi";
-import { getSubCategories } from "../../../features/subCategories/api/subCategoryApi";
+import { getSubCategories } from "../../../features/subcategories/api/subcategoryApi";
 
 function Dashboard() {
   const navigate = useNavigate();
