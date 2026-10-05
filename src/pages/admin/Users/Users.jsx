@@ -326,7 +326,7 @@ function Users() {
         <div className="admin-users-header">
 
           <div>
-            <h1>Userssssss</h1>
+            <h1>Users</h1>
 
             <p>
               Manage store users
