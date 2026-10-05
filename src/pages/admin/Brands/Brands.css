@@ -327,7 +327,7 @@
 }
 
 /* =========================
-   Responsive - Cards
+   Responsive
 ========================= */
 
 @media (max-width: 1110px) {
@@ -411,10 +411,6 @@
     max-width: 70%;
   }
 
-  .brands-table td:nth-child(2) {
-    justify-content: space-between;
-  }
-
   .brands-table td:nth-child(6) {
     display: block;
     margin-top: 10px;
@@ -443,10 +439,6 @@
   }
 }
 
-/* =========================
-   Tablet
-========================= */
-
 @media (max-width: 900px) {
   .brand-form {
     grid-template-columns: 1fr 1fr;
@@ -456,10 +448,6 @@
     grid-column: 1 / -1;
   }
 }
-
-/* =========================
-   Mobile
-========================= */
 
 @media (max-width: 768px) {
   .admin-brands-page {
@@ -489,10 +477,6 @@
     padding: 18px;
   }
 }
-
-/* =========================
-   Small Mobile
-========================= */
 
 @media (max-width: 480px) {
   .admin-brands-page {
