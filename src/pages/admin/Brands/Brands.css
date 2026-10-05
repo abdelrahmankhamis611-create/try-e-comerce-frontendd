@@ -387,18 +387,22 @@
   }
 
   .brands-table td:nth-child(2)::before {
-    content: "Name";
-  }
-
-  .brands-table td:nth-child(3)::before {
     content: "Image";
   }
 
+  .brands-table td:nth-child(3)::before {
+    content: "Name";
+  }
+
   .brands-table td:nth-child(4)::before {
-    content: "Created";
+    content: "Slug";
   }
 
   .brands-table td:nth-child(5)::before {
+    content: "Created";
+  }
+
+  .brands-table td:nth-child(6)::before {
     content: "Actions";
   }
 
@@ -407,18 +411,18 @@
     max-width: 70%;
   }
 
-  .brands-table td:nth-child(3) {
+  .brands-table td:nth-child(2) {
     justify-content: space-between;
   }
 
-  .brands-table td:nth-child(5) {
+  .brands-table td:nth-child(6) {
     display: block;
     margin-top: 10px;
     padding-top: 15px;
     border-top: 1px solid #f1f5f9;
   }
 
-  .brands-table td:nth-child(5)::before {
+  .brands-table td:nth-child(6)::before {
     display: block;
     margin-bottom: 10px;
   }
