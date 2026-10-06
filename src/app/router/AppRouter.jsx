@@ -1,9 +1,11 @@
-
 import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
+
+import { useSelector } from "react-redux";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -39,6 +41,47 @@ import AdminBrands from "../../pages/admin/Brands/Brands";
 import AdminUsers from "../../pages/admin/Users/Users";
 import AdminOrders from "../../pages/admin/Orders/Orders";
 
+function HomeRoute() {
+  const {
+    user,
+    isAuthenticated,
+    initialized,
+  } = useSelector((state) => state.auth);
+
+  if (!initialized) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "18px",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
+
+  if (
+    isAuthenticated &&
+    (
+      user?.role === "admin" ||
+      user?.role === "manager"
+    )
+  ) {
+    return (
+      <Navigate
+        to="/admin"
+        replace
+      />
+    );
+  }
+
+  return <Home />;
+}
+
 function AppRouter() {
   return (
     <BrowserRouter>
@@ -52,7 +95,7 @@ function AppRouter() {
 
           <Route
             path="/"
-            element={<Home />}
+            element={<HomeRoute />}
           />
 
           <Route
@@ -209,4 +252,3 @@ function AppRouter() {
 }
 
 export default AppRouter;
-
