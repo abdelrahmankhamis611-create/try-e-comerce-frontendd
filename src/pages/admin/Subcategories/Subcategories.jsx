@@ -316,7 +316,7 @@ console.log("=======================================");
   };
 
   const totalPages =
-    pagination?.numberOfPages || 1;
+  pagination?.totalPages || 1;
 
   return (
     <div className="admin-page">

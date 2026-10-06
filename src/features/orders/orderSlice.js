@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   orders: [],
   order: null,
+  pagination: null,
   loading: false,
   error: null,
 };
@@ -18,10 +19,6 @@ const orderSlice = createSlice({
       state.error = null;
     },
 
-    // =========================
-    // OLD STORE ACTIONS
-    // =========================
-
     createOrderSuccess: (state, action) => {
       state.loading = false;
 
@@ -36,15 +33,15 @@ const orderSlice = createSlice({
       state.error = null;
     },
 
+    setPagination: (state, action) => {
+      state.pagination = action.payload;
+    },
+
     getOrderSuccess: (state, action) => {
       state.loading = false;
       state.order = action.payload;
       state.error = null;
     },
-
-    // =========================
-    // ADMIN / SHARED ACTIONS
-    // =========================
 
     getOrderByIdSuccess: (state, action) => {
       state.loading = false;

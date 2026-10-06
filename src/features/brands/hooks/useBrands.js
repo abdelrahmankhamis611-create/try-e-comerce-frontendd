@@ -25,6 +25,12 @@ function useBrands() {
           brandActions.getBrandsSuccess(data.data)
         );
 
+        dispatch(
+          brandActions.setPagination(
+            data.paginationResult
+          )
+        );
+
         return data;
       } catch (error) {
         console.log(

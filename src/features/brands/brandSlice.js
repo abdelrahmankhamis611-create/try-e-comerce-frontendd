@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   brands: [],
   brand: null,
+  pagination: null,
   loading: false,
   error: null,
 };
@@ -22,6 +23,10 @@ const brandSlice = createSlice({
       state.loading = false;
       state.brands = action.payload;
       state.error = null;
+    },
+
+    setPagination: (state, action) => {
+      state.pagination = action.payload;
     },
 
     getBrandByIdSuccess: (state, action) => {

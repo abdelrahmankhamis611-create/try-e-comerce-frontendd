@@ -4,12 +4,6 @@ import Swal from "sweetalert2";
 
 import useBrands from "../../../features/brands/hooks/useBrands";
 
-/* =========================================================
-   CSS
-   نفس شكل وتنسيق Users
-   وكل القواعد متقيّدة بـ .brd-x
-   ========================================================= */
-
 const css = `
 .brd-x {
   min-height: 100vh;
@@ -329,6 +323,53 @@ const css = `
 .brd-x .brd-delete:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.brd-x .brd-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 20px 22px;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.brd-x .brd-page-btn {
+  min-width: 92px;
+  height: 38px;
+  padding: 0 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  background: #fff;
+  color: #374151;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.brd-x .brd-page-btn:hover:not(:disabled) {
+  border-color: #9ca3af;
+  background: #f9fafb;
+}
+
+.brd-x .brd-page-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.brd-x .brd-page-info {
+  min-width: 100px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
 }
 
 /* =========================================================
@@ -749,6 +790,15 @@ const css = `
     padding: 0 16px;
   }
 
+  .brd-x .brd-pagination {
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .brd-x .brd-page-btn {
+    min-width: 82px;
+  }
+
   .brd-x .brd-layer {
     align-items: flex-start;
     padding: 14px;
@@ -813,6 +863,21 @@ const css = `
     font-size: 16px;
   }
 
+  .brd-x .brd-pagination {
+    flex-wrap: wrap;
+    padding: 14px 10px;
+  }
+
+  .brd-x .brd-page-info {
+    order: -1;
+    width: 100%;
+  }
+
+  .brd-x .brd-page-btn {
+    flex: 1;
+    min-width: 0;
+  }
+
   .brd-x .brd-layer {
     padding: 10px;
   }
@@ -848,10 +913,6 @@ const css = `
 }
 `;
 
-/* =========================================================
-   Brands
-   ========================================================= */
-
 function Brands() {
   const {
     fetchBrands,
@@ -860,7 +921,12 @@ function Brands() {
     handleDeleteBrand,
   } = useBrands();
 
-  const { brands, loading, error } = useSelector(
+  const {
+    brands,
+    loading,
+    error,
+    pagination,
+  } = useSelector(
     (state) => state.brands
   );
 
@@ -870,18 +936,32 @@ function Brands() {
   const [editingId, setEditingId] = useState(null);
   const [saving, setSaving] = useState(false);
 
+  const [page, setPage] = useState(1);
+
+  const limit = 5;
+
   const busy = loading || saving;
 
+  /* =========================================================
+     Fetch current page
+     ========================================================= */
+
   useEffect(() => {
-    fetchBrands();
-  }, [fetchBrands]);
+    fetchBrands({
+      page,
+      limit,
+    });
+  }, [fetchBrands, page]);
 
   /* =========================================================
      Image preview
      ========================================================= */
 
   const previewUrl = useMemo(
-    () => (image ? URL.createObjectURL(image) : null),
+    () =>
+      image
+        ? URL.createObjectURL(image)
+        : null,
     [image]
   );
 
@@ -894,11 +974,16 @@ function Brands() {
   }, [previewUrl]);
 
   const editingBrand = editingId
-    ? brands.find((brand) => brand._id === editingId)
+    ? brands.find(
+        (brand) =>
+          brand._id === editingId
+      )
     : null;
 
   const shownImage =
-    previewUrl || editingBrand?.image || null;
+    previewUrl ||
+    editingBrand?.image ||
+    null;
 
   const fileInputRef = useRef(null);
 
@@ -951,15 +1036,24 @@ function Brands() {
     }
 
     const onKeyDown = (event) => {
-      if (event.key === "Escape" && !saving) {
+      if (
+        event.key === "Escape" &&
+        !saving
+      ) {
         closeForm();
       }
     };
 
-    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener(
+      "keydown",
+      onKeyDown
+    );
 
     return () => {
-      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener(
+        "keydown",
+        onKeyDown
+      );
     };
   }, [showForm, saving]);
 
@@ -1001,24 +1095,41 @@ function Brands() {
 
     const formData = new FormData();
 
-    formData.append("name", name.trim());
+    formData.append(
+      "name",
+      name.trim()
+    );
 
     if (image) {
-      formData.append("image", image);
+      formData.append(
+        "image",
+        image
+      );
     }
 
-    const isEditing = Boolean(editingId);
+    const isEditing =
+      Boolean(editingId);
 
     try {
       setSaving(true);
 
       if (isEditing) {
-        await handleUpdateBrand(editingId, formData);
+        await handleUpdateBrand(
+          editingId,
+          formData
+        );
       } else {
-        await handleCreateBrand(formData);
+        await handleCreateBrand(
+          formData
+        );
       }
 
       closeForm();
+
+      await fetchBrands({
+        page,
+        limit,
+      });
 
       await Swal.fire({
         icon: "success",
@@ -1036,8 +1147,10 @@ function Brands() {
         icon: "error",
         title: "Something went wrong",
         text:
-          err.response?.data?.message ||
-          err.response?.data?.errors?.[0]?.msg ||
+          err.response?.data
+            ?.message ||
+          err.response?.data
+            ?.errors?.[0]?.msg ||
           "Something went wrong.",
       });
     } finally {
@@ -1049,22 +1162,77 @@ function Brands() {
      Delete
      ========================================================= */
 
-  const handleDelete = async (brandId) => {
-    const result = await Swal.fire({
-      icon: "warning",
-      title: "Delete Brand?",
-      text: "This brand will be deleted permanently.",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it",
-      cancelButtonText: "Cancel",
-    });
+  const handleDelete = async (
+    brandId
+  ) => {
+    const result =
+      await Swal.fire({
+        icon: "warning",
+        title: "Delete Brand?",
+        text: "This brand will be deleted permanently.",
+        showCancelButton: true,
+        confirmButtonText:
+          "Yes, delete it",
+        cancelButtonText: "Cancel",
+      });
 
     if (!result.isConfirmed) {
       return;
     }
 
+    const wasLastBrandOnPage =
+      brands.length === 1;
+
+    const totalPagesBeforeDelete =
+      pagination?.totalPages || 1;
+
     try {
-      await handleDeleteBrand(brandId);
+      await handleDeleteBrand(
+        brandId
+      );
+
+      /*
+       * لو الصفحة الحالية بقت فاضية
+       * ونحنا مش في أول صفحة:
+       * نرجع للصفحة السابقة.
+       */
+      if (
+        wasLastBrandOnPage &&
+        page > 1
+      ) {
+        setPage(
+          (currentPage) =>
+            currentPage - 1
+        );
+      }
+
+      /*
+       * لو إحنا في الصفحة الأولى
+       * وكان فيه صفحات تانية،
+       * نعمل fetch للصفحة الأولى
+       * عشان ناخد Brands من الصفحة التالية.
+       */
+      else if (
+        wasLastBrandOnPage &&
+        page === 1 &&
+        totalPagesBeforeDelete > 1
+      ) {
+        await fetchBrands({
+          page: 1,
+          limit,
+        });
+      }
+
+      /*
+       * لو الصفحة لسه فيها Brands
+       * نعمل refresh للبيانات والـ pagination.
+       */
+      else if (!wasLastBrandOnPage) {
+        await fetchBrands({
+          page,
+          limit,
+        });
+      }
 
       await Swal.fire({
         icon: "success",
@@ -1076,11 +1244,28 @@ function Brands() {
         icon: "error",
         title: "Delete Failed",
         text:
-          err.response?.data?.message ||
+          err.response?.data
+            ?.message ||
           "Failed to delete brand.",
       });
     }
   };
+
+  /* =========================================================
+     Pagination
+     ========================================================= */
+
+  const currentPage =
+    pagination?.currentPage || page;
+
+  const totalPages =
+    pagination?.totalPages || 1;
+
+  const canGoPrevious =
+    currentPage > 1;
+
+  const canGoNext =
+    currentPage < totalPages;
 
   /* =========================================================
      Render
@@ -1099,23 +1284,33 @@ function Brands() {
         <div className="brd-topbar">
           <div>
             <h1>Brands</h1>
-            <p>Manage the brands in your store</p>
+
+            <p>
+              Manage the brands in your
+              store
+            </p>
           </div>
 
           <div className="brd-toolbar">
+
             <div className="brd-total">
               {brands.length}{" "}
-              {brands.length === 1 ? "Brand" : "Brands"}
+              {brands.length === 1
+                ? "Brand"
+                : "Brands"}
             </div>
 
             <button
               type="button"
               className="brd-add"
-              onClick={handleOpenCreate}
+              onClick={
+                handleOpenCreate
+              }
               disabled={busy}
             >
               + Add Brand
             </button>
+
           </div>
         </div>
 
@@ -1139,7 +1334,8 @@ function Brands() {
             <h2>All Brands</h2>
           </div>
 
-          {loading && brands.length === 0 ? (
+          {loading &&
+          brands.length === 0 ? (
             <div className="brd-status">
               Loading brands...
             </div>
@@ -1148,107 +1344,225 @@ function Brands() {
               No brands found.
             </div>
           ) : (
-            <div className="brd-table-box">
-              <table className="brd-table">
+            <>
+              <div className="brd-table-box">
 
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Brand</th>
-                    <th>Created At</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
+                <table className="brd-table">
 
-                <tbody>
-                  {brands.map((brand, index) => (
-                    <tr key={brand._id}>
-
-                      <td className="brd-index">
-                        {index + 1}
-                      </td>
-
-                      <td>
-                        <div className="brd-brand">
-
-                          {brand.image ? (
-                            <div className="brd-avatar">
-                              <img
-                                src={brand.image}
-                                alt={brand.name}
-                              />
-                            </div>
-                          ) : (
-                            <div className="brd-avatar brd-fallback">
-                              {(brand.name || "?")
-                                .charAt(0)
-                                .toUpperCase()}
-                            </div>
-                          )}
-
-                          <div className="brd-brand-text">
-                            <strong>
-                              {brand.name}
-                            </strong>
-
-                            <span>
-                              {brand.slug || "-"}
-                            </span>
-                          </div>
-
-                        </div>
-                      </td>
-
-                      <td className="brd-date">
-                        {brand.createdAt
-                          ? new Date(
-                              brand.createdAt
-                            ).toLocaleDateString()
-                          : "-"}
-                      </td>
-
-                      <td>
-                        <div className="brd-actions">
-
-                          <button
-                            type="button"
-                            className="brd-edit"
-                            onClick={() =>
-                              handleEdit(brand)
-                            }
-                            disabled={busy}
-                          >
-                            Edit
-                          </button>
-
-                          <button
-                            type="button"
-                            className="brd-delete"
-                            onClick={() =>
-                              handleDelete(brand._id)
-                            }
-                            disabled={busy}
-                          >
-                            Delete
-                          </button>
-
-                        </div>
-                      </td>
-
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Brand</th>
+                      <th>
+                        Created At
+                      </th>
+                      <th>
+                        Actions
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
+                  </thead>
 
-              </table>
-            </div>
+                  <tbody>
+
+                    {brands.map(
+                      (
+                        brand,
+                        index
+                      ) => (
+                        <tr
+                          key={
+                            brand._id
+                          }
+                        >
+
+                          <td className="brd-index">
+                            {(
+                              (currentPage -
+                                1) *
+                                limit
+                            ) +
+                              index +
+                              1}
+                          </td>
+
+                          <td>
+
+                            <div className="brd-brand">
+
+                              {brand.image ? (
+                                <div className="brd-avatar">
+
+                                  <img
+                                    src={
+                                      brand.image
+                                    }
+                                    alt={
+                                      brand.name
+                                    }
+                                  />
+
+                                </div>
+                              ) : (
+                                <div className="brd-avatar brd-fallback">
+
+                                  {(
+                                    brand.name ||
+                                    "?"
+                                  )
+                                    .charAt(
+                                      0
+                                    )
+                                    .toUpperCase()}
+
+                                </div>
+                              )}
+
+                              <div className="brd-brand-text">
+
+                                <strong>
+                                  {
+                                    brand.name
+                                  }
+                                </strong>
+
+                                <span>
+                                  {
+                                    brand.slug ||
+                                    "-"
+                                  }
+                                </span>
+
+                              </div>
+
+                            </div>
+
+                          </td>
+
+                          <td className="brd-date">
+
+                            {brand.createdAt
+                              ? new Date(
+                                  brand.createdAt
+                                ).toLocaleDateString()
+                              : "-"}
+
+                          </td>
+
+                          <td>
+
+                            <div className="brd-actions">
+
+                              <button
+                                type="button"
+                                className="brd-edit"
+                                onClick={() =>
+                                  handleEdit(
+                                    brand
+                                  )
+                                }
+                                disabled={
+                                  busy
+                                }
+                              >
+                                Edit
+                              </button>
+
+                              <button
+                                type="button"
+                                className="brd-delete"
+                                onClick={() =>
+                                  handleDelete(
+                                    brand._id
+                                  )
+                                }
+                                disabled={
+                                  busy
+                                }
+                              >
+                                Delete
+                              </button>
+
+                            </div>
+
+                          </td>
+
+                        </tr>
+                      )
+                    )}
+
+                  </tbody>
+
+                </table>
+
+              </div>
+
+              {/* =================================================
+                  PAGINATION
+                  ================================================= */}
+
+              {totalPages > 1 && (
+                <div className="brd-pagination">
+
+                  <button
+                    type="button"
+                    className="brd-page-btn"
+                    disabled={
+                      loading ||
+                      !canGoPrevious
+                    }
+                    onClick={() =>
+                      setPage(
+                        (currentPage) =>
+                          Math.max(
+                            1,
+                            currentPage -
+                              1
+                          )
+                      )
+                    }
+                  >
+                    Previous
+                  </button>
+
+                  <div className="brd-page-info">
+                    Page{" "}
+                    {currentPage}{" "}
+                    of{" "}
+                    {totalPages}
+                  </div>
+
+                  <button
+                    type="button"
+                    className="brd-page-btn"
+                    disabled={
+                      loading ||
+                      !canGoNext
+                    }
+                    onClick={() =>
+                      setPage(
+                        (currentPage) =>
+                          Math.min(
+                            totalPages,
+                            currentPage +
+                              1
+                          )
+                      )
+                    }
+                  >
+                    Next
+                  </button>
+
+                </div>
+              )}
+
+            </>
           )}
+
         </section>
       </div>
 
       {/* =======================================================
           ADD / EDIT MODAL
-
-          مش موجود في الصفحة نهائيًا إلا لما showForm = true
           ======================================================= */}
 
       {showForm && (
@@ -1263,6 +1577,7 @@ function Brands() {
             <div className="brd-modal-head">
 
               <div>
+
                 <h2>
                   {editingId
                     ? "Edit Brand"
@@ -1274,12 +1589,15 @@ function Brands() {
                     ? "Update brand information"
                     : "Create a new brand"}
                 </p>
+
               </div>
 
               <button
                 type="button"
                 className="brd-close"
-                onClick={handleCloseClick}
+                onClick={
+                  handleCloseClick
+                }
                 disabled={saving}
                 aria-label="Close"
               >
@@ -1294,7 +1612,9 @@ function Brands() {
 
             <form
               className="brd-form"
-              onSubmit={handleSubmit}
+              onSubmit={
+                handleSubmit
+              }
             >
 
               {/* BRAND NAME */}
@@ -1311,7 +1631,9 @@ function Brands() {
                   type="text"
                   value={name}
                   onChange={(e) =>
-                    setName(e.target.value)
+                    setName(
+                      e.target.value
+                    )
                   }
                   placeholder="Enter brand name"
                   disabled={busy}
@@ -1343,7 +1665,9 @@ function Brands() {
 
                       {shownImage ? (
                         <img
-                          src={shownImage}
+                          src={
+                            shownImage
+                          }
                           alt="Brand preview"
                         />
                       ) : (
@@ -1372,12 +1696,16 @@ function Brands() {
 
                     <input
                       id="brandImage"
-                      ref={fileInputRef}
+                      ref={
+                        fileInputRef
+                      }
                       type="file"
                       accept="image/*"
                       onChange={(e) =>
                         setImage(
-                          e.target.files[0] || null
+                          e.target
+                            .files[0] ||
+                            null
                         )
                       }
                       disabled={busy}
@@ -1389,7 +1717,9 @@ function Brands() {
                     <button
                       type="button"
                       className="brd-remove-image"
-                      onClick={clearImage}
+                      onClick={
+                        clearImage
+                      }
                       disabled={busy}
                       aria-label="Remove selected image"
                       title="Remove image"
@@ -1409,7 +1739,9 @@ function Brands() {
                 <button
                   type="button"
                   className="brd-cancel"
-                  onClick={handleCloseClick}
+                  onClick={
+                    handleCloseClick
+                  }
                   disabled={saving}
                 >
                   Cancel
@@ -1419,7 +1751,8 @@ function Brands() {
                   type="submit"
                   className="brd-save"
                   disabled={
-                    busy || !name.trim()
+                    busy ||
+                    !name.trim()
                   }
                 >
                   {saving
@@ -1437,6 +1770,7 @@ function Brands() {
 
         </div>
       )}
+
     </div>
   );
 }

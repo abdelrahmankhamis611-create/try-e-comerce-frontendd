@@ -46,7 +46,7 @@ function Categories() {
       image: null,
     });
 
-  const limit = 10;
+  const limit = 5;
 
   // =========================
   // Fetch Categories

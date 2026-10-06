@@ -14,10 +14,6 @@ import { orderActions } from "../orderSlice";
 function useOrders() {
   const dispatch = useDispatch();
 
-  // =========================
-  // Get All Orders
-  // =========================
-
   const fetchOrders = useCallback(
     async (params = {}) => {
       try {
@@ -27,6 +23,12 @@ function useOrders() {
 
         dispatch(
           orderActions.getOrdersSuccess(data.data)
+        );
+
+        dispatch(
+          orderActions.setPagination(
+            data.paginationResult
+          )
         );
 
         return data;
@@ -44,10 +46,6 @@ function useOrders() {
     },
     [dispatch]
   );
-
-  // =========================
-  // Get One Order
-  // =========================
 
   const fetchOrderById = useCallback(
     async (orderId) => {
@@ -75,10 +73,6 @@ function useOrders() {
     },
     [dispatch]
   );
-
-  // =========================
-  // Mark Order As Paid
-  // =========================
 
   const handleMarkOrderAsPaid = useCallback(
     async (orderId) => {
@@ -110,10 +104,6 @@ function useOrders() {
     [dispatch]
   );
 
-  // =========================
-  // Mark Order As Delivered
-  // =========================
-
   const handleMarkOrderAsDelivered = useCallback(
     async (orderId) => {
       try {
@@ -144,10 +134,6 @@ function useOrders() {
     },
     [dispatch]
   );
-
-  // =========================
-  // Delete Order
-  // =========================
 
   const handleDeleteOrder = useCallback(
     async (orderId) => {
