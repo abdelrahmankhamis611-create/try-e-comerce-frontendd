@@ -1,9 +1,14 @@
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-import { useEffect, useState } from "react";
 import {
   Link,
   useSearchParams,
 } from "react-router-dom";
+
 import { useSelector } from "react-redux";
 
 import useProducts from "../../../features/products/hooks/useProducts";
@@ -30,6 +35,12 @@ function Products() {
   );
 
   // =========================
+  // Products Section Ref
+  // =========================
+
+  const productsSectionRef = useRef(null);
+
+  // =========================
   // Search
   // =========================
 
@@ -39,9 +50,8 @@ function Products() {
   const urlCategory =
     searchParams.get("category") || "";
 
-  const [keyword, setKeyword] = useState(
-    urlKeyword
-  );
+  const [keyword, setKeyword] =
+    useState(urlKeyword);
 
   const [searchKeyword, setSearchKeyword] =
     useState(urlKeyword);
@@ -55,11 +65,9 @@ function Products() {
 
   const [sort, setSort] = useState("");
 
-  // Applied price filters
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
 
-  // Price inputs
   const [minPriceInput, setMinPriceInput] =
     useState("");
 
@@ -73,6 +81,23 @@ function Products() {
   const [page, setPage] = useState(1);
 
   const limit = 6;
+
+  // =========================
+  // Pagination Handler
+  // =========================
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+
+    requestAnimationFrame(() => {
+      productsSectionRef.current?.scrollIntoView(
+        {
+          behavior: "auto",
+          block: "start",
+        }
+      );
+    });
+  };
 
   // =========================
   // Sync Search And Category
@@ -112,30 +137,28 @@ function Products() {
       limit,
     };
 
-    // Search
     if (searchKeyword.trim()) {
       params.keyword =
         searchKeyword.trim();
     }
 
-    // Category
     if (selectedCategory) {
-      params.category = selectedCategory;
+      params.category =
+        selectedCategory;
     }
 
-    // Sort
     if (sort) {
       params.sort = sort;
     }
 
-    // Minimum Price
     if (minPrice !== "") {
-      params["price[gte]"] = minPrice;
+      params["price[gte]"] =
+        minPrice;
     }
 
-    // Maximum Price
     if (maxPrice !== "") {
-      params["price[lte]"] = maxPrice;
+      params["price[lte]"] =
+        maxPrice;
     }
 
     fetchProducts(params);
@@ -164,11 +187,13 @@ function Products() {
     const params = {};
 
     if (trimmedKeyword) {
-      params.keyword = trimmedKeyword;
+      params.keyword =
+        trimmedKeyword;
     }
 
     if (selectedCategory) {
-      params.category = selectedCategory;
+      params.category =
+        selectedCategory;
     }
 
     setSearchParams(params);
@@ -194,7 +219,8 @@ function Products() {
     }
 
     if (categoryId) {
-      params.category = categoryId;
+      params.category =
+        categoryId;
     }
 
     setSearchParams(params);
@@ -246,10 +272,6 @@ function Products() {
     setSearchParams({});
   };
 
-  // =========================
-  // Render
-  // =========================
-
   return (
     <main className="products-page">
 
@@ -262,8 +284,8 @@ function Products() {
           <h1>All Products</h1>
 
           <p>
-            Browse our collection and find the
-            products you need.
+            Browse our collection and
+            find the products you need.
           </p>
         </div>
       </section>
@@ -309,55 +331,61 @@ function Products() {
 
             <button
               type="button"
-              onClick={handleClearFilters}
+              onClick={
+                handleClearFilters
+              }
             >
               Clear
             </button>
           </div>
 
-          {/* =========================
-              Category
-          ========================= */}
+          {/* Category */}
 
           <div className="filter-group">
             <h3>Category</h3>
 
             <select
               value={selectedCategory}
-              onChange={handleCategoryChange}
+              onChange={
+                handleCategoryChange
+              }
             >
               <option value="">
                 All Categories
               </option>
 
-              {categories.map((category) => (
-                <option
-                  key={category._id}
-                  value={category._id}
-                >
-                  {category.name}
-                </option>
-              ))}
+              {categories.map(
+                (category) => (
+                  <option
+                    key={category._id}
+                    value={category._id}
+                  >
+                    {category.name}
+                  </option>
+                )
+              )}
             </select>
           </div>
 
-          {/* =========================
-              Price
-          ========================= */}
+          {/* Price */}
 
           <div className="filter-group">
             <h3>Price</h3>
 
             <form
               className="price-filter-form"
-              onSubmit={handlePriceFilter}
+              onSubmit={
+                handlePriceFilter
+              }
             >
               <input
                 type="number"
                 name="minPrice"
                 placeholder="Min price"
                 min="0"
-                value={minPriceInput}
+                value={
+                  minPriceInput
+                }
                 onChange={(e) =>
                   setMinPriceInput(
                     e.target.value
@@ -370,7 +398,9 @@ function Products() {
                 name="maxPrice"
                 placeholder="Max price"
                 min="0"
-                value={maxPriceInput}
+                value={
+                  maxPriceInput
+                }
                 onChange={(e) =>
                   setMaxPriceInput(
                     e.target.value
@@ -384,16 +414,16 @@ function Products() {
             </form>
           </div>
 
-          {/* =========================
-              Sort
-          ========================= */}
+          {/* Sort */}
 
           <div className="filter-group">
             <h3>Sort By</h3>
 
             <select
               value={sort}
-              onChange={handleSortChange}
+              onChange={
+                handleSortChange
+              }
             >
               <option value="">
                 Default
@@ -427,7 +457,10 @@ function Products() {
             Products Area
         ========================= */}
 
-        <div className="products-main">
+        <div
+          ref={productsSectionRef}
+          className="products-main"
+        >
 
           {/* Loading */}
 
@@ -455,7 +488,11 @@ function Products() {
 
                   <span>
                     {pagination?.totalPages
-                      ? `Page ${pagination.currentPage} of ${pagination.totalPages}`
+                      ? `Page ${
+                          pagination.currentPage
+                        } of ${
+                          pagination.totalPages
+                        }`
                       : `${products.length} products`}
                   </span>
 
@@ -467,105 +504,122 @@ function Products() {
 
                 <div className="products-grid-page">
 
-                  {products.map((product) => {
+                  {products.map(
+                    (product) => {
+                      const hasDiscount =
+                        product.priceAfterDiscount &&
+                        product.priceAfterDiscount <
+                          product.price;
 
-                    const hasDiscount =
-                      product.priceAfterDiscount &&
-                      product.priceAfterDiscount <
-                        product.price;
-
-                    return (
-                      <article
-                        key={product._id}
-                        className="product-card-page"
-                      >
-
-                        {/* Product Image */}
-
-                        <Link
-                          to={`/products/${product._id}`}
-                          className="product-card-page-image"
+                      return (
+                        <article
+                          key={
+                            product._id
+                          }
+                          className="product-card-page"
                         >
-                          <img
-                            src={
-                              product.imageCover
-                            }
-                            alt={product.title}
-                          />
-                        </Link>
 
-                        {/* Product Info */}
-
-                        <div className="product-card-page-info">
+                          {/* Image */}
 
                           <Link
                             to={`/products/${product._id}`}
-                            className="product-card-page-title"
+                            className="product-card-page-image"
                           >
-                            {product.title}
+                            <img
+                              src={
+                                product.imageCover
+                              }
+                              alt={
+                                product.title
+                              }
+                            />
                           </Link>
 
-                          {/* Rating */}
+                          {/* Info */}
 
-                          <div className="product-card-page-rating">
+                          <div className="product-card-page-info">
 
-                            <span className="rating-stars">
-                              ★
-                            </span>
+                            <Link
+                              to={`/products/${product._id}`}
+                              className="product-card-page-title"
+                            >
+                              {
+                                product.title
+                              }
+                            </Link>
 
-                            <span>
-                              {product.ratingsAverage ||
-                                0}
-                            </span>
+                            {/* Rating */}
 
-                            <span className="rating-count">
-                              (
-                              {product.ratingsQuantity ||
-                                0}
-                              )
-                            </span>
+                            <div className="product-card-page-rating">
 
-                          </div>
+                              <span className="rating-stars">
+                                ★
+                              </span>
 
-                          {/* Price */}
+                              <span>
+                                {
+                                  product.ratingsAverage ||
+                                  0
+                                }
+                              </span>
 
-                          <div className="product-card-page-price">
+                              <span className="rating-count">
+                                (
+                                {
+                                  product.ratingsQuantity ||
+                                  0
+                                }
+                                )
+                              </span>
 
-                            {hasDiscount ? (
-                              <>
+                            </div>
+
+                            {/* Price */}
+
+                            <div className="product-card-page-price">
+
+                              {hasDiscount ? (
+                                <>
+                                  <span className="current-price">
+                                    $
+                                    {
+                                      product.priceAfterDiscount
+                                    }
+                                  </span>
+
+                                  <span className="old-price">
+                                    $
+                                    {
+                                      product.price
+                                    }
+                                  </span>
+                                </>
+                              ) : (
                                 <span className="current-price">
                                   $
                                   {
-                                    product.priceAfterDiscount
+                                    product.price
                                   }
                                 </span>
+                              )}
 
-                                <span className="old-price">
-                                  ${product.price}
-                                </span>
-                              </>
-                            ) : (
-                              <span className="current-price">
-                                ${product.price}
-                              </span>
-                            )}
+                            </div>
+
+                            {/* View Product */}
+
+                            <Link
+                              to={`/products/${product._id}`}
+                              className="product-card-page-button"
+                            >
+                              View Product
+                            </Link>
 
                           </div>
 
-                          {/* Button */}
-
-                          <Link
-                            to={`/products/${product._id}`}
-                            className="product-card-page-button"
-                          >
-                            View Product
-                          </Link>
-
-                        </div>
-
-                      </article>
-                    );
-                  })}
+                        </article>
+                      );
+                    }
+                  )}
 
                 </div>
 
@@ -574,8 +628,11 @@ function Products() {
                 ========================= */}
 
                 {pagination &&
-                  pagination.totalPages > 1 && (
+                  pagination.totalPages >
+                    1 && (
                     <div className="products-pagination">
+
+                      {/* Previous */}
 
                       <button
                         type="button"
@@ -583,7 +640,7 @@ function Products() {
                           !pagination.prevPage
                         }
                         onClick={() =>
-                          setPage(
+                          handlePageChange(
                             pagination.prevPage
                           )
                         }
@@ -602,13 +659,13 @@ function Products() {
                             : ""
                         }
                         onClick={() =>
-                          setPage(1)
+                          handlePageChange(1)
                         }
                       >
                         1
                       </button>
 
-                      {/* Dots after first page */}
+                      {/* Dots */}
 
                       {pagination.currentPage >
                         3 && (
@@ -617,7 +674,7 @@ function Products() {
                         </span>
                       )}
 
-                      {/* Pages around current page */}
+                      {/* Pages Around Current */}
 
                       {Array.from(
                         {
@@ -637,27 +694,33 @@ function Products() {
                                 pagination.currentPage
                             ) <= 1
                         )
-                        .map((pageNumber) => (
-                          <button
-                            key={pageNumber}
-                            type="button"
-                            className={
-                              pageNumber ===
-                              pagination.currentPage
-                                ? "active"
-                                : ""
-                            }
-                            onClick={() =>
-                              setPage(
+                        .map(
+                          (pageNumber) => (
+                            <button
+                              key={
                                 pageNumber
-                              )
-                            }
-                          >
-                            {pageNumber}
-                          </button>
-                        ))}
+                              }
+                              type="button"
+                              className={
+                                pageNumber ===
+                                pagination.currentPage
+                                  ? "active"
+                                  : ""
+                              }
+                              onClick={() =>
+                                handlePageChange(
+                                  pageNumber
+                                )
+                              }
+                            >
+                              {
+                                pageNumber
+                              }
+                            </button>
+                          )
+                        )}
 
-                      {/* Dots before last page */}
+                      {/* Dots */}
 
                       {pagination.currentPage <
                         pagination.totalPages -
@@ -667,7 +730,7 @@ function Products() {
                         </span>
                       )}
 
-                      {/* Last page */}
+                      {/* Last Page */}
 
                       {pagination.totalPages >
                         1 && (
@@ -680,7 +743,7 @@ function Products() {
                               : ""
                           }
                           onClick={() =>
-                            setPage(
+                            handlePageChange(
                               pagination.totalPages
                             )
                           }
@@ -691,13 +754,15 @@ function Products() {
                         </button>
                       )}
 
+                      {/* Next */}
+
                       <button
                         type="button"
                         disabled={
                           !pagination.nextPage
                         }
                         onClick={() =>
-                          setPage(
+                          handlePageChange(
                             pagination.nextPage
                           )
                         }
@@ -707,6 +772,7 @@ function Products() {
 
                     </div>
                   )}
+
               </>
             )}
 
@@ -727,4 +793,3 @@ function Products() {
 }
 
 export default Products;
-
