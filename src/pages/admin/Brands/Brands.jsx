@@ -5,134 +5,852 @@ import Swal from "sweetalert2";
 import useBrands from "../../../features/brands/hooks/useBrands";
 
 /* =========================================================
-   الـ CSS جوه الملف نفسه، وكل القواعد متقيّدة بـ .brd-x
+   CSS
+   نفس شكل وتنسيق Users
+   وكل القواعد متقيّدة بـ .brd-x
    ========================================================= */
+
 const css = `
 .brd-x {
-  --ink: #0f172a;
-  --muted: #64748b;
-  --line: #e2e8f0;
-  --soft: #f8fafc;
-  --accent: #2563eb;
-  --accent-dark: #1d4ed8;
-  --accent-tint: #eff6ff;
-  --danger: #dc2626;
-  --danger-tint: #fef2f2;
-
   min-height: 100vh;
   padding: 32px;
-  background: #f1f5f9;
-  color: var(--ink);
+  background: #f3f4f6;
+  box-sizing: border-box;
   font-family: inherit;
-}
-.brd-x *, .brd-x *::before, .brd-x *::after { box-sizing: border-box; }
-.brd-x .brd-shell { max-width: 1280px; margin: 0 auto; }
-
-/* ---------- header ---------- */
-.brd-x .brd-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 26px; }
-.brd-x .brd-header h1 { margin: 0; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; color: var(--ink); }
-.brd-x .brd-header p { margin: 6px 0 0; font-size: 15px; color: var(--muted); }
-.brd-x .brd-count { display: flex; align-items: baseline; gap: 6px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; white-space: nowrap; }
-.brd-x .brd-count b { font-size: 20px; font-weight: 800; color: var(--ink); }
-.brd-x .brd-count span { font-size: 13px; color: var(--muted); }
-
-.brd-x .brd-error { margin-bottom: 20px; padding: 14px 16px; border: 1px solid #fecaca; border-radius: 12px; background: var(--danger-tint); color: #b91c1c; font-size: 14px; }
-
-/* ---------- layout ---------- */
-.brd-x .brd-layout { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
-
-/* ---------- form panel ---------- */
-.brd-x .brd-panel { position: sticky; top: 24px; padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
-.brd-x .brd-panel.brd-editing { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08); }
-.brd-x .brd-panel h2 { margin: 0 0 4px; font-size: 18px; font-weight: 700; color: var(--ink); }
-.brd-x .brd-panel .brd-hint { margin: 0 0 20px; font-size: 13px; color: var(--muted); }
-
-.brd-x .brd-form { display: flex; flex-direction: column; gap: 18px; }
-.brd-x .brd-field { display: flex; flex-direction: column; gap: 8px; }
-.brd-x .brd-field > label, .brd-x .brd-field > .brd-label { font-size: 13px; font-weight: 600; color: #334155; }
-
-.brd-x .brd-input { width: 100%; height: 46px; padding: 0 14px; border: 1px solid #cbd5e1; border-radius: 10px; outline: none; background: #fff; color: var(--ink); font-family: inherit; font-size: 14px; transition: border-color .15s ease, box-shadow .15s ease; }
-.brd-x .brd-input::placeholder { color: #94a3b8; }
-.brd-x .brd-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12); }
-.brd-x .brd-input:disabled { background: #f1f5f9; cursor: not-allowed; }
-
-/* upload */
-.brd-x .brd-upload-wrap { position: relative; }
-.brd-x .brd-upload-wrap .brd-upload { padding-right: 52px; }
-.brd-x .brd-remove-image { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); width: 30px; height: 30px; padding: 0; display: flex; align-items: center; justify-content: center; border: 1px solid #fecaca; border-radius: 50%; background: #fff; color: var(--danger); font-family: inherit; font-size: 20px; line-height: 1; cursor: pointer; transition: background .15s ease, border-color .15s ease; }
-.brd-x .brd-remove-image:hover:not(:disabled) { background: var(--danger-tint); border-color: #fca5a5; }
-.brd-x .brd-remove-image:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.15); }
-.brd-x .brd-remove-image:disabled { opacity: .5; cursor: not-allowed; }
-.brd-x .brd-upload { position: relative; display: flex; align-items: center; gap: 14px; padding: 12px; border: 1.5px dashed #cbd5e1; border-radius: 12px; background: var(--soft); cursor: pointer; transition: border-color .15s ease, background .15s ease; }
-.brd-x .brd-upload:hover { border-color: var(--accent); background: var(--accent-tint); }
-.brd-x .brd-upload:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12); }
-.brd-x .brd-upload.brd-disabled { opacity: .6; cursor: not-allowed; }
-.brd-x .brd-upload input[type="file"] { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); border: 0; opacity: 0; }
-.brd-x .brd-preview { flex-shrink: 0; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 12px; background: #fff; overflow: hidden; color: #94a3b8; font-size: 22px; }
-.brd-x .brd-preview img { width: 100%; height: 100%; padding: 4px; object-fit: contain; }
-.brd-x .brd-upload-text { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.brd-x .brd-upload-text strong { font-size: 13px; font-weight: 600; color: var(--ink); }
-.brd-x .brd-upload-text span { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-.brd-x .brd-form-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
-.brd-x .brd-btn { height: 46px; padding: 0 18px; border-radius: 10px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background .15s ease, border-color .15s ease, transform .15s ease; }
-.brd-x .brd-btn:disabled { opacity: .5; cursor: not-allowed; }
-.brd-x .brd-btn-primary { border: 1px solid var(--accent); background: var(--accent); color: #fff; }
-.brd-x .brd-btn-primary:hover:not(:disabled) { background: var(--accent-dark); border-color: var(--accent-dark); }
-.brd-x .brd-btn-ghost { border: 1px solid #cbd5e1; background: #fff; color: #334155; }
-.brd-x .brd-btn-ghost:hover:not(:disabled) { background: var(--soft); border-color: #94a3b8; }
-
-/* ---------- list ---------- */
-.brd-x .brd-list { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
-.brd-x .brd-list-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--line); }
-.brd-x .brd-list-head h2 { margin: 0; font-size: 18px; font-weight: 700; color: var(--ink); }
-.brd-x .brd-message { display: flex; align-items: center; justify-content: center; min-height: 220px; padding: 24px; color: var(--muted); font-size: 15px; text-align: center; }
-
-.brd-x .brd-table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.brd-x .brd-table { width: 100%; min-width: 640px; border-collapse: collapse; }
-.brd-x .brd-table th { padding: 12px 22px; background: var(--soft); border-bottom: 1px solid var(--line); color: var(--muted); font-size: 13px; font-weight: 600; text-align: left; white-space: nowrap; }
-.brd-x .brd-table td { padding: 14px 22px; border-bottom: 1px solid #f1f5f9; color: #334155; font-size: 14px; text-align: left; vertical-align: middle; }
-.brd-x .brd-table tbody tr { transition: background .15s ease; }
-.brd-x .brd-table tbody tr:hover { background: var(--soft); }
-.brd-x .brd-table tbody tr:last-child td { border-bottom: 0; }
-.brd-x .brd-table tbody tr.brd-row-active { background: var(--accent-tint); box-shadow: inset 3px 0 0 var(--accent); }
-
-.brd-x .brd-index { color: #94a3b8; font-variant-numeric: tabular-nums; }
-
-.brd-x .brd-brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
-.brd-x .brd-avatar { flex-shrink: 0; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: 12px; background: #fff; overflow: hidden; color: var(--accent); font-size: 18px; font-weight: 800; }
-.brd-x .brd-avatar img { width: 100%; height: 100%; padding: 5px; object-fit: contain; display: block; }
-.brd-x .brd-avatar.brd-fallback { background: var(--accent-tint); border-color: transparent; }
-.brd-x .brd-brand-text { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.brd-x .brd-brand-text strong { color: var(--ink); font-size: 14px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.brd-x .brd-brand-text span { color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-.brd-x .brd-date { white-space: nowrap; color: var(--muted); }
-
-.brd-x .brd-actions { display: flex; align-items: center; gap: 8px; }
-.brd-x .brd-edit, .brd-x .brd-delete { height: 34px; padding: 0 14px; border: 1px solid transparent; border-radius: 8px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; transition: background .15s ease; }
-.brd-x .brd-edit { background: var(--accent-tint); color: var(--accent); }
-.brd-x .brd-edit:hover:not(:disabled) { background: #dbeafe; }
-.brd-x .brd-delete { background: var(--danger-tint); color: var(--danger); }
-.brd-x .brd-delete:hover:not(:disabled) { background: #fee2e2; }
-.brd-x .brd-edit:disabled, .brd-x .brd-delete:disabled { opacity: .5; cursor: not-allowed; }
-
-/* ---------- responsive ---------- */
-@media (max-width: 1024px) {
-  .brd-x { padding: 24px; }
-  .brd-x .brd-layout { grid-template-columns: 1fr; }
-  .brd-x .brd-panel { position: static; }
+  color: #111827;
 }
 
-@media (max-width: 600px) {
-  .brd-x { padding: 16px 12px; }
-  .brd-x .brd-header { align-items: flex-start; flex-direction: column; gap: 14px; }
-  .brd-x .brd-header h1 { font-size: 25px; }
-  .brd-x .brd-panel { padding: 18px; }
-  .brd-x .brd-list-head { padding: 16px; }
-  .brd-x .brd-table th, .brd-x .brd-table td { padding: 12px 14px; }
+.brd-x *,
+.brd-x *::before,
+.brd-x *::after {
+  box-sizing: border-box;
+}
+
+.brd-x .brd-shell {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.brd-x .brd-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.brd-x .brd-topbar h1 {
+  margin: 0;
+  color: #111827;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.brd-x .brd-topbar p {
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.brd-x .brd-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brd-x .brd-total {
+  padding: 11px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   ADD BUTTON
+   ========================================================= */
+
+.brd-x .brd-add {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 8px;
+  background: #111827;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.brd-x .brd-add:hover:not(:disabled) {
+  background: #1f2937;
+  transform: translateY(-1px);
+}
+
+.brd-x .brd-add:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.brd-x .brd-error {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.brd-x .brd-card {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.brd-x .brd-card-head {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  padding: 0 22px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.brd-x .brd-card-head h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.brd-x .brd-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  padding: 24px;
+  color: #6b7280;
+  font-size: 15px;
+  text-align: center;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.brd-x .brd-table-box {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.brd-x .brd-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.brd-x .brd-table th {
+  height: 52px;
+  padding: 0 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.brd-x .brd-table td {
+  height: 70px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #374151;
+  font-size: 14px;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.brd-x .brd-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.brd-x .brd-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.brd-x .brd-index {
+  color: #6b7280;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   BRAND CELL
+   ========================================================= */
+
+.brd-x .brd-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.brd-x .brd-avatar {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #6b7280;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.brd-x .brd-avatar img {
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  object-fit: contain;
+  display: block;
+}
+
+.brd-x .brd-avatar.brd-fallback {
+  background: #f3f4f6;
+}
+
+.brd-x .brd-brand-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.brd-x .brd-brand-text strong {
+  max-width: 250px;
+  overflow: hidden;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brd-x .brd-brand-text span {
+  max-width: 250px;
+  overflow: hidden;
+  color: #6b7280;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brd-x .brd-date {
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.brd-x .brd-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brd-x .brd-edit,
+.brd-x .brd-delete {
+  min-width: 68px;
+  height: 34px;
+  padding: 0 11px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  background: #fff;
+}
+
+.brd-x .brd-edit {
+  border: 1px solid #d1d5db;
+  color: #374151;
+}
+
+.brd-x .brd-edit:hover:not(:disabled) {
+  border-color: #9ca3af;
+  background: #f9fafb;
+}
+
+.brd-x .brd-delete {
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.brd-x .brd-delete:hover:not(:disabled) {
+  border-color: #fca5a5;
+  background: #fef2f2;
+}
+
+.brd-x .brd-edit:disabled,
+.brd-x .brd-delete:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.brd-x .brd-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(17, 24, 39, 0.6);
+
+  overflow-y: auto;
+}
+
+.brd-x .brd-modal {
+  width: 100%;
+  max-width: 540px;
+  max-height: calc(100vh - 48px);
+
+  margin: auto;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  background: #fff;
+
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.16),
+    0 8px 16px rgba(0, 0, 0, 0.08);
+
+  overflow-y: auto;
+}
+
+/* =========================================================
+   MODAL HEADER
+   ========================================================= */
+
+.brd-x .brd-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 22px 24px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.brd-x .brd-modal-head h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.brd-x .brd-modal-head p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.brd-x .brd-close {
+  flex-shrink: 0;
+
+  width: 34px;
+  height: 34px;
+
+  padding: 0;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 7px;
+
+  background: #fff;
+  color: #6b7280;
+
+  font-family: inherit;
+  font-size: 24px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.brd-x .brd-close:hover:not(:disabled) {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.brd-x .brd-close:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.brd-x .brd-form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  padding: 24px;
+}
+
+.brd-x .brd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.brd-x .brd-field > label,
+.brd-x .brd-label {
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.brd-x .brd-input {
+  width: 100%;
+  height: 44px;
+
+  padding: 0 12px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #fff;
+  color: #111827;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.brd-x .brd-input::placeholder {
+  color: #9ca3af;
+}
+
+.brd-x .brd-input:focus {
+  border-color: #6b7280;
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.12);
+}
+
+.brd-x .brd-input:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   IMAGE UPLOAD
+   ========================================================= */
+
+.brd-x .brd-upload-wrap {
+  position: relative;
+}
+
+.brd-x .brd-upload {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  width: 100%;
+  min-height: 82px;
+
+  padding: 12px;
+
+  border: 1.5px dashed #d1d5db;
+  border-radius: 10px;
+
+  background: #f9fafb;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.brd-x .brd-upload:hover {
+  border-color: #6b7280;
+  background: #f3f4f6;
+}
+
+.brd-x .brd-upload:focus-within {
+  border-color: #6b7280;
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.12);
+}
+
+.brd-x .brd-upload.brd-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.brd-x .brd-upload input[type="file"] {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: -1px;
+  padding: 0;
+
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+
+  border: 0;
+  opacity: 0;
+}
+
+.brd-x .brd-preview {
+  flex-shrink: 0;
+
+  width: 56px;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+
+  background: #fff;
+
+  color: #9ca3af;
+
+  font-size: 22px;
+}
+
+.brd-x .brd-preview img {
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  object-fit: contain;
+  display: block;
+}
+
+.brd-x .brd-upload-text {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.brd-x .brd-upload-text strong {
+  color: #111827;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.brd-x .brd-upload-text span {
+  max-width: 350px;
+
+  overflow: hidden;
+
+  color: #6b7280;
+  font-size: 12px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brd-x .brd-remove-image {
+  position: absolute;
+
+  top: 50%;
+  right: 10px;
+
+  transform: translateY(-50%);
+
+  width: 30px;
+  height: 30px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #fecaca;
+  border-radius: 50%;
+
+  background: #fff;
+  color: #dc2626;
+
+  font-family: inherit;
+  font-size: 20px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.brd-x .brd-remove-image:hover:not(:disabled) {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+
+.brd-x .brd-remove-image:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   FORM BUTTONS
+   ========================================================= */
+
+.brd-x .brd-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  margin-top: 6px;
+  padding-top: 20px;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+.brd-x .brd-cancel,
+.brd-x .brd-save {
+  min-width: 110px;
+  height: 42px;
+
+  padding: 0 16px;
+
+  border-radius: 7px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.brd-x .brd-cancel {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #374151;
+}
+
+.brd-x .brd-cancel:hover:not(:disabled) {
+  background: #f9fafb;
+}
+
+.brd-x .brd-save {
+  border: 1px solid #111827;
+  background: #111827;
+  color: #fff;
+}
+
+.brd-x .brd-save:hover:not(:disabled) {
+  background: #1f2937;
+}
+
+.brd-x .brd-cancel:disabled,
+.brd-x .brd-save:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1110px) {
+  .brd-x {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .brd-x {
+    padding: 18px 14px;
+  }
+
+  .brd-x .brd-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .brd-x .brd-topbar h1 {
+    font-size: 25px;
+  }
+
+  .brd-x .brd-toolbar {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .brd-x .brd-total {
+    flex: 1;
+  }
+
+  .brd-x .brd-add {
+    flex-shrink: 0;
+  }
+
+  .brd-x .brd-card-head {
+    padding: 0 16px;
+  }
+
+  .brd-x .brd-layer {
+    align-items: flex-start;
+    padding: 14px;
+  }
+
+  .brd-x .brd-modal {
+    max-height: calc(100vh - 28px);
+    border-radius: 10px;
+  }
+
+  .brd-x .brd-modal-head {
+    padding: 18px;
+  }
+
+  .brd-x .brd-form {
+    gap: 15px;
+    padding: 18px;
+  }
+
+  .brd-x .brd-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .brd-x .brd-cancel,
+  .brd-x .brd-save {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .brd-x {
+    padding: 14px 10px;
+  }
+
+  .brd-x .brd-topbar h1 {
+    font-size: 23px;
+  }
+
+  .brd-x .brd-topbar p {
+    font-size: 13px;
+  }
+
+  .brd-x .brd-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .brd-x .brd-total {
+    width: 100%;
+    text-align: center;
+  }
+
+  .brd-x .brd-add {
+    width: 100%;
+  }
+
+  .brd-x .brd-card-head {
+    min-height: 58px;
+  }
+
+  .brd-x .brd-card-head h2 {
+    font-size: 16px;
+  }
+
+  .brd-x .brd-layer {
+    padding: 10px;
+  }
+
+  .brd-x .brd-modal {
+    max-height: calc(100vh - 20px);
+  }
+
+  .brd-x .brd-modal-head {
+    padding: 16px;
+  }
+
+  .brd-x .brd-modal-head h2 {
+    font-size: 19px;
+  }
+
+  .brd-x .brd-form {
+    padding: 16px;
+  }
+
+  .brd-x .brd-input {
+    height: 42px;
+  }
+
+  .brd-x .brd-upload {
+    min-height: 76px;
+  }
+
+  .brd-x .brd-preview {
+    width: 50px;
+    height: 50px;
+  }
 }
 `;
+
+/* =========================================================
+   Brands
+   ========================================================= */
 
 function Brands() {
   const {
@@ -146,15 +864,22 @@ function Brands() {
     (state) => state.brands
   );
 
+  const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
   const [editingId, setEditingId] = useState(null);
+  const [saving, setSaving] = useState(false);
+
+  const busy = loading || saving;
 
   useEffect(() => {
     fetchBrands();
   }, [fetchBrands]);
 
-  /* معاينة الصورة المختارة، وتنضيف الـ URL لما تتغير */
+  /* =========================================================
+     Image preview
+     ========================================================= */
+
   const previewUrl = useMemo(
     () => (image ? URL.createObjectURL(image) : null),
     [image]
@@ -162,7 +887,9 @@ function Brands() {
 
   useEffect(() => {
     return () => {
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
     };
   }, [previewUrl]);
 
@@ -170,12 +897,15 @@ function Brands() {
     ? brands.find((brand) => brand._id === editingId)
     : null;
 
-  const shownImage = previewUrl || editingBrand?.image || null;
+  const shownImage =
+    previewUrl || editingBrand?.image || null;
 
   const fileInputRef = useRef(null);
 
-  /* بيمسح الصورة المختارة (قبل الحفظ) ويفضّي الـ input
-     عشان تقدر تختار نفس الصورة تاني لو حبيت */
+  /* =========================================================
+     Clear selected image
+     ========================================================= */
+
   const clearImage = () => {
     setImage(null);
 
@@ -184,16 +914,88 @@ function Brands() {
     }
   };
 
+  /* =========================================================
+     Reset form
+     ========================================================= */
+
   const resetForm = () => {
     setName("");
     setEditingId(null);
     clearImage();
   };
 
+  /* =========================================================
+     Close form
+     ========================================================= */
+
+  const closeForm = () => {
+    setShowForm(false);
+    resetForm();
+  };
+
+  const handleCloseClick = () => {
+    if (saving) {
+      return;
+    }
+
+    closeForm();
+  };
+
+  /* =========================================================
+     Escape
+     ========================================================= */
+
+  useEffect(() => {
+    if (!showForm) {
+      return undefined;
+    }
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape" && !saving) {
+        closeForm();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [showForm, saving]);
+
+  /* =========================================================
+     Open Create
+     ========================================================= */
+
+  const handleOpenCreate = () => {
+    resetForm();
+    setShowForm(true);
+  };
+
+  /* =========================================================
+     Open Edit
+     ========================================================= */
+
+  const handleEdit = (brand) => {
+    setEditingId(brand._id);
+    setName(brand.name || "");
+    clearImage();
+    setShowForm(true);
+  };
+
+  /* =========================================================
+     Submit
+     ========================================================= */
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!name.trim()) {
+      await Swal.fire({
+        icon: "warning",
+        title: "Brand name is required",
+      });
+
       return;
     }
 
@@ -205,41 +1007,47 @@ function Brands() {
       formData.append("image", image);
     }
 
-    try {
-      if (editingId) {
-        await handleUpdateBrand(editingId, formData);
+    const isEditing = Boolean(editingId);
 
-        await Swal.fire({
-          icon: "success",
-          title: "Brand Updated",
-          text: "Brand has been updated successfully.",
-        });
+    try {
+      setSaving(true);
+
+      if (isEditing) {
+        await handleUpdateBrand(editingId, formData);
       } else {
         await handleCreateBrand(formData);
-
-        await Swal.fire({
-          icon: "success",
-          title: "Brand Created",
-          text: "Brand has been created successfully.",
-        });
       }
 
-      resetForm();
+      closeForm();
+
+      await Swal.fire({
+        icon: "success",
+        title: isEditing
+          ? "Brand Updated"
+          : "Brand Created",
+        text: isEditing
+          ? "Brand has been updated successfully."
+          : "Brand has been created successfully.",
+      });
     } catch (err) {
+      closeForm();
+
       Swal.fire({
         icon: "error",
         title: "Something went wrong",
         text:
-          err.response?.data?.message || "Something went wrong.",
+          err.response?.data?.message ||
+          err.response?.data?.errors?.[0]?.msg ||
+          "Something went wrong.",
       });
+    } finally {
+      setSaving(false);
     }
   };
 
-  const handleEdit = (brand) => {
-    setEditingId(brand._id);
-    setName(brand.name);
-    clearImage();
-  };
+  /* =========================================================
+     Delete
+     ========================================================= */
 
   const handleDelete = async (brandId) => {
     const result = await Swal.fire({
@@ -263,92 +1071,293 @@ function Brands() {
         title: "Deleted",
         text: "Brand has been deleted successfully.",
       });
-
-      if (editingId === brandId) {
-        resetForm();
-      }
     } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Delete Failed",
         text:
-          err.response?.data?.message || "Failed to delete brand.",
+          err.response?.data?.message ||
+          "Failed to delete brand.",
       });
     }
   };
+
+  /* =========================================================
+     Render
+     ========================================================= */
 
   return (
     <div className="brd-x">
       <style>{css}</style>
 
       <div className="brd-shell">
-        <div className="brd-header">
+
+        {/* =====================================================
+            TOP BAR
+            ===================================================== */}
+
+        <div className="brd-topbar">
           <div>
             <h1>Brands</h1>
             <p>Manage the brands in your store</p>
           </div>
 
-          <div className="brd-count">
-            <b>{brands.length}</b>
-            <span>{brands.length === 1 ? "brand" : "brands"}</span>
+          <div className="brd-toolbar">
+            <div className="brd-total">
+              {brands.length}{" "}
+              {brands.length === 1 ? "Brand" : "Brands"}
+            </div>
+
+            <button
+              type="button"
+              className="brd-add"
+              onClick={handleOpenCreate}
+              disabled={busy}
+            >
+              + Add Brand
+            </button>
           </div>
         </div>
 
-        {error && <div className="brd-error">{error}</div>}
+        {/* =====================================================
+            ERROR
+            ===================================================== */}
 
-        <div className="brd-layout">
-          {/* ---------- form ---------- */}
-          <section
-            className={
-              editingId ? "brd-panel brd-editing" : "brd-panel"
-            }
-          >
-            <h2>{editingId ? "Update brand" : "Add new brand"}</h2>
+        {error && (
+          <div className="brd-error">
+            {error}
+          </div>
+        )}
 
-            <p className="brd-hint">
-              {editingId
-                ? "Change the name or pick a new logo."
-                : "Give the brand a name and a logo."}
-            </p>
+        {/* =====================================================
+            BRANDS CARD
+            ===================================================== */}
 
-            <form className="brd-form" onSubmit={handleSubmit}>
+        <section className="brd-card">
+
+          <div className="brd-card-head">
+            <h2>All Brands</h2>
+          </div>
+
+          {loading && brands.length === 0 ? (
+            <div className="brd-status">
+              Loading brands...
+            </div>
+          ) : brands.length === 0 ? (
+            <div className="brd-status">
+              No brands found.
+            </div>
+          ) : (
+            <div className="brd-table-box">
+              <table className="brd-table">
+
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Brand</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {brands.map((brand, index) => (
+                    <tr key={brand._id}>
+
+                      <td className="brd-index">
+                        {index + 1}
+                      </td>
+
+                      <td>
+                        <div className="brd-brand">
+
+                          {brand.image ? (
+                            <div className="brd-avatar">
+                              <img
+                                src={brand.image}
+                                alt={brand.name}
+                              />
+                            </div>
+                          ) : (
+                            <div className="brd-avatar brd-fallback">
+                              {(brand.name || "?")
+                                .charAt(0)
+                                .toUpperCase()}
+                            </div>
+                          )}
+
+                          <div className="brd-brand-text">
+                            <strong>
+                              {brand.name}
+                            </strong>
+
+                            <span>
+                              {brand.slug || "-"}
+                            </span>
+                          </div>
+
+                        </div>
+                      </td>
+
+                      <td className="brd-date">
+                        {brand.createdAt
+                          ? new Date(
+                              brand.createdAt
+                            ).toLocaleDateString()
+                          : "-"}
+                      </td>
+
+                      <td>
+                        <div className="brd-actions">
+
+                          <button
+                            type="button"
+                            className="brd-edit"
+                            onClick={() =>
+                              handleEdit(brand)
+                            }
+                            disabled={busy}
+                          >
+                            Edit
+                          </button>
+
+                          <button
+                            type="button"
+                            className="brd-delete"
+                            onClick={() =>
+                              handleDelete(brand._id)
+                            }
+                            disabled={busy}
+                          >
+                            Delete
+                          </button>
+
+                        </div>
+                      </td>
+
+                    </tr>
+                  ))}
+                </tbody>
+
+              </table>
+            </div>
+          )}
+        </section>
+      </div>
+
+      {/* =======================================================
+          ADD / EDIT MODAL
+
+          مش موجود في الصفحة نهائيًا إلا لما showForm = true
+          ======================================================= */}
+
+      {showForm && (
+        <div className="brd-layer">
+
+          <div className="brd-modal">
+
+            {/* =================================================
+                MODAL HEADER
+                ================================================= */}
+
+            <div className="brd-modal-head">
+
+              <div>
+                <h2>
+                  {editingId
+                    ? "Edit Brand"
+                    : "Add Brand"}
+                </h2>
+
+                <p>
+                  {editingId
+                    ? "Update brand information"
+                    : "Create a new brand"}
+                </p>
+              </div>
+
+              <button
+                type="button"
+                className="brd-close"
+                onClick={handleCloseClick}
+                disabled={saving}
+                aria-label="Close"
+              >
+                ×
+              </button>
+
+            </div>
+
+            {/* =================================================
+                FORM
+                ================================================= */}
+
+            <form
+              className="brd-form"
+              onSubmit={handleSubmit}
+            >
+
+              {/* BRAND NAME */}
+
               <div className="brd-field">
-                <label htmlFor="brandName">Brand name</label>
+
+                <label htmlFor="brandName">
+                  Brand Name
+                </label>
 
                 <input
                   id="brandName"
                   className="brd-input"
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) =>
+                    setName(e.target.value)
+                  }
                   placeholder="Enter brand name"
-                  disabled={loading}
+                  disabled={busy}
+                  autoFocus
                 />
+
               </div>
 
+              {/* BRAND IMAGE */}
+
               <div className="brd-field">
-                <span className="brd-label">Brand image</span>
+
+                <span className="brd-label">
+                  Brand Image
+                </span>
 
                 <div className="brd-upload-wrap">
+
                   <label
                     htmlFor="brandImage"
                     className={
-                      loading
+                      busy
                         ? "brd-upload brd-disabled"
                         : "brd-upload"
                     }
                   >
+
                     <div className="brd-preview">
+
                       {shownImage ? (
-                        <img src={shownImage} alt="Brand preview" />
+                        <img
+                          src={shownImage}
+                          alt="Brand preview"
+                        />
                       ) : (
                         "🖼"
                       )}
+
                     </div>
 
                     <div className="brd-upload-text">
+
                       <strong>
-                        {image ? "Change image" : "Choose an image"}
+                        {image
+                          ? "Change image"
+                          : "Choose an image"}
                       </strong>
 
                       <span>
@@ -358,6 +1367,7 @@ function Brands() {
                             ? "Keeping the current image"
                             : "PNG, JPG or WEBP"}
                       </span>
+
                     </div>
 
                     <input
@@ -366,10 +1376,13 @@ function Brands() {
                       type="file"
                       accept="image/*"
                       onChange={(e) =>
-                        setImage(e.target.files[0] || null)
+                        setImage(
+                          e.target.files[0] || null
+                        )
                       }
-                      disabled={loading}
+                      disabled={busy}
                     />
+
                   </label>
 
                   {image && (
@@ -377,143 +1390,53 @@ function Brands() {
                       type="button"
                       className="brd-remove-image"
                       onClick={clearImage}
-                      disabled={loading}
+                      disabled={busy}
                       aria-label="Remove selected image"
                       title="Remove image"
                     >
                       ×
                     </button>
                   )}
+
                 </div>
+
               </div>
+
+              {/* BUTTONS */}
 
               <div className="brd-form-actions">
+
                 <button
-                  type="submit"
-                  className="brd-btn brd-btn-primary"
-                  disabled={loading || !name.trim()}
+                  type="button"
+                  className="brd-cancel"
+                  onClick={handleCloseClick}
+                  disabled={saving}
                 >
-                  {loading
-                    ? "Saving..."
-                    : editingId
-                      ? "Update brand"
-                      : "Add brand"}
+                  Cancel
                 </button>
 
-                {editingId && (
-                  <button
-                    type="button"
-                    className="brd-btn brd-btn-ghost"
-                    onClick={resetForm}
-                    disabled={loading}
-                  >
-                    Cancel
-                  </button>
-                )}
+                <button
+                  type="submit"
+                  className="brd-save"
+                  disabled={
+                    busy || !name.trim()
+                  }
+                >
+                  {saving
+                    ? "Saving..."
+                    : editingId
+                      ? "Save Changes"
+                      : "Create Brand"}
+                </button>
+
               </div>
+
             </form>
-          </section>
 
-          {/* ---------- list ---------- */}
-          <section className="brd-list">
-            <div className="brd-list-head">
-              <h2>All brands</h2>
-            </div>
+          </div>
 
-            {loading && brands.length === 0 ? (
-              <div className="brd-message">Loading brands...</div>
-            ) : brands.length === 0 ? (
-              <div className="brd-message">
-                No brands yet. Add your first one from the form.
-              </div>
-            ) : (
-              <div className="brd-table-wrap">
-                <table className="brd-table">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Brand</th>
-                      <th>Created</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {brands.map((brand, index) => (
-                      <tr
-                        key={brand._id}
-                        className={
-                          editingId === brand._id
-                            ? "brd-row-active"
-                            : undefined
-                        }
-                      >
-                        <td className="brd-index">{index + 1}</td>
-
-                        <td>
-                          <div className="brd-brand">
-                            {brand.image ? (
-                              <div className="brd-avatar">
-                                <img
-                                  src={brand.image}
-                                  alt={brand.name}
-                                />
-                              </div>
-                            ) : (
-                              <div className="brd-avatar brd-fallback">
-                                {(brand.name || "?")
-                                  .charAt(0)
-                                  .toUpperCase()}
-                              </div>
-                            )}
-
-                            <div className="brd-brand-text">
-                              <strong>{brand.name}</strong>
-                              <span>{brand.slug || "-"}</span>
-                            </div>
-                          </div>
-                        </td>
-
-                        <td className="brd-date">
-                          {brand.createdAt
-                            ? new Date(
-                                brand.createdAt
-                              ).toLocaleDateString()
-                            : "-"}
-                        </td>
-
-                        <td>
-                          <div className="brd-actions">
-                            <button
-                              type="button"
-                              className="brd-edit"
-                              onClick={() => handleEdit(brand)}
-                              disabled={loading}
-                            >
-                              Edit
-                            </button>
-
-                            <button
-                              type="button"
-                              className="brd-delete"
-                              onClick={() =>
-                                handleDelete(brand._id)
-                              }
-                              disabled={loading}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </section>
         </div>
-      </div>
+      )}
     </div>
   );
 }
