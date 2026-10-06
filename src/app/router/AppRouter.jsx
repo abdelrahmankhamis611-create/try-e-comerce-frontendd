@@ -3,7 +3,11 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
+  useNavigationType,
 } from "react-router-dom";
+
+import { useEffect } from "react";
 
 import { useSelector } from "react-redux";
 
@@ -40,6 +44,86 @@ import AdminSubCategories from "../../pages/admin/Subcategories/Subcategories";
 import AdminBrands from "../../pages/admin/Brands/Brands";
 import AdminUsers from "../../pages/admin/Users/Users";
 import AdminOrders from "../../pages/admin/Orders/Orders";
+
+
+function ScrollToTop() {
+  const location = useLocation();
+  const navigationType = useNavigationType();
+
+  const locationKey = location.key;
+
+  useEffect(() => {
+    window.history.scrollRestoration = "manual";
+
+    return () => {
+      window.history.scrollRestoration = "auto";
+    };
+  }, []);
+
+  useEffect(() => {
+    const savedPositions = JSON.parse(
+      sessionStorage.getItem("scroll-positions") || "{}"
+    );
+
+    const saveScrollPosition = () => {
+      savedPositions[locationKey] = window.scrollY;
+
+      sessionStorage.setItem(
+        "scroll-positions",
+        JSON.stringify(savedPositions)
+      );
+    };
+
+    window.addEventListener(
+      "scroll",
+      saveScrollPosition,
+      { passive: true }
+    );
+
+    return () => {
+      saveScrollPosition();
+
+      window.removeEventListener(
+        "scroll",
+        saveScrollPosition
+      );
+    };
+  }, [locationKey]);
+
+  useEffect(() => {
+    const savedPositions = JSON.parse(
+      sessionStorage.getItem("scroll-positions") || "{}"
+    );
+
+    if (navigationType === "POP") {
+      const savedPosition =
+        savedPositions[locationKey];
+
+      if (typeof savedPosition === "number") {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            window.scrollTo({
+              top: savedPosition,
+              left: 0,
+              behavior: "auto",
+            });
+          });
+        });
+      }
+
+      return;
+    }
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, [locationKey, navigationType]);
+
+  return null;
+}
+
 
 function HomeRoute() {
   const {
@@ -82,9 +166,13 @@ function HomeRoute() {
   return <Home />;
 }
 
+
 function AppRouter() {
   return (
     <BrowserRouter>
+
+      <ScrollToTop />
+
       <Routes>
 
         {/* ========================= */}
@@ -247,6 +335,7 @@ function AppRouter() {
         </Route>
 
       </Routes>
+
     </BrowserRouter>
   );
 }
