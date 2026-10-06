@@ -240,6 +240,147 @@
   display: block;
 }
 
+/* =========================
+   Selected New Images
+========================= */
+
+.admin-selected-images {
+  margin-top: 22px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+.admin-selected-images-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 14px;
+}
+
+.admin-selected-images-header strong {
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #374151;
+}
+
+.admin-selected-images-header span {
+  font-size: 12px;
+
+  color: #6b7280;
+}
+
+.admin-selected-images-grid {
+  display: grid;
+
+  grid-template-columns: repeat(
+    5,
+    minmax(0, 1fr)
+  );
+
+  gap: 14px;
+}
+
+.admin-selected-image-card {
+  min-width: 0;
+
+  overflow: hidden;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 10px;
+
+  background-color: #f9fafb;
+}
+
+.admin-selected-image-preview {
+  width: 100%;
+
+  height: 150px;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.admin-selected-image-info {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 8px;
+
+  padding: 9px;
+}
+
+.admin-selected-image-name {
+  min-width: 0;
+
+  flex: 1;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-size: 12px;
+
+  color: #374151;
+}
+
+.admin-remove-image-button {
+  width: 26px;
+
+  height: 26px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background-color: #dc2626;
+
+  color: #ffffff;
+
+  font-size: 18px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.admin-remove-image-button:hover {
+  background-color: #b91c1c;
+}
+
+.admin-remove-image-button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
 .admin-product-form-actions {
   display: flex;
 
@@ -310,7 +451,8 @@
     );
   }
 
-  .admin-current-images-grid {
+  .admin-current-images-grid,
+  .admin-selected-images-grid {
     grid-template-columns: repeat(
       4,
       minmax(0, 1fr)
@@ -327,7 +469,8 @@
     grid-template-columns: 1fr;
   }
 
-  .admin-current-images-grid {
+  .admin-current-images-grid,
+  .admin-selected-images-grid {
     grid-template-columns: repeat(
       2,
       minmax(0, 1fr)
@@ -355,11 +498,13 @@
     padding: 15px;
   }
 
-  .admin-current-images-grid {
+  .admin-current-images-grid,
+  .admin-selected-images-grid {
     grid-template-columns: 1fr;
   }
 
-  .admin-current-product-image {
+  .admin-current-product-image,
+  .admin-selected-image-preview {
     height: 200px;
   }
 }

@@ -55,7 +55,7 @@ function SubCategories() {
 
   useEffect(() => {
     fetchCategories({
-      limit: 100,
+      limit: 5,
     });
   }, [fetchCategories]);
 

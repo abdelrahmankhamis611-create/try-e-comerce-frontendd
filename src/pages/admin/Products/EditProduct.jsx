@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -306,10 +305,53 @@ function EditProduct() {
   const handleImagesChange = (
     e
   ) => {
+    const selectedImages =
+      Array.from(
+        e.target.files || []
+      );
+
+    setFormData((prev) => {
+      const existingImages =
+        prev.image;
+
+      const newImages =
+        selectedImages.filter(
+          (newImage) =>
+            !existingImages.some(
+              (existingImage) =>
+                existingImage.name ===
+                  newImage.name &&
+                existingImage.size ===
+                  newImage.size &&
+                existingImage.lastModified ===
+                  newImage.lastModified
+            )
+        );
+
+      return {
+        ...prev,
+        image: [
+          ...existingImages,
+          ...newImages,
+        ],
+      };
+    });
+
+    e.target.value = "";
+  };
+
+  // =========================
+  // Remove Selected Image
+  // =========================
+
+  const handleRemoveImage = (
+    indexToRemove
+  ) => {
     setFormData((prev) => ({
       ...prev,
-      image: Array.from(
-        e.target.files || []
+      image: prev.image.filter(
+        (_, index) =>
+          index !== indexToRemove
       ),
     }));
   };
@@ -1012,6 +1054,88 @@ function EditProduct() {
 
           </div>
 
+          {/* Selected New Images */}
+
+          {formData.image.length >
+            0 && (
+            <div className="admin-selected-images">
+
+              <div className="admin-selected-images-header">
+
+                <strong>
+                  Selected Product Images
+                </strong>
+
+                <span>
+                  {formData.image.length}{" "}
+                  {formData.image.length ===
+                  1
+                    ? "image"
+                    : "images"}
+                </span>
+
+              </div>
+
+              <div className="admin-selected-images-grid">
+
+                {formData.image.map(
+                  (
+                    image,
+                    index
+                  ) => (
+                    <div
+                      className="admin-selected-image-card"
+                      key={`${image.name}-${image.lastModified}-${index}`}
+                    >
+
+                      <img
+                        src={URL.createObjectURL(
+                          image
+                        )}
+                        alt={
+                          image.name
+                        }
+                        className="admin-selected-image-preview"
+                      />
+
+                      <div className="admin-selected-image-info">
+
+                        <span
+                          className="admin-selected-image-name"
+                          title={
+                            image.name
+                          }
+                        >
+                          {image.name}
+                        </span>
+
+                        <button
+                          type="button"
+                          className="admin-remove-image-button"
+                          onClick={() =>
+                            handleRemoveImage(
+                              index
+                            )
+                          }
+                          disabled={
+                            updateLoading
+                          }
+                          aria-label={`Remove ${image.name}`}
+                        >
+                          ×
+                        </button>
+
+                      </div>
+
+                    </div>
+                  )
+                )}
+
+              </div>
+
+            </div>
+          )}
+
           {/* Current Images */}
 
           {oldImages.length >
@@ -1097,4 +1221,3 @@ function EditProduct() {
 }
 
 export default EditProduct;
-
