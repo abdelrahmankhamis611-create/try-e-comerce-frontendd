@@ -125,10 +125,55 @@
   box-sizing: border-box;
 }
 
+.admin-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .admin-header-title h1 {
   margin: 0;
   font-size: 22px;
   color: #111827;
+}
+
+/* ========================= */
+/* MENU BUTTON */
+/* ========================= */
+
+.admin-menu-button {
+  display: none;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #111827;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-menu-button:hover {
+  background-color: #f3f4f6;
+}
+
+/* ========================= */
+/* CLOSE BUTTON */
+/* ========================= */
+
+.admin-sidebar-close {
+  display: none;
+}
+
+/* ========================= */
+/* OVERLAY */
+/* ========================= */
+
+.admin-sidebar-overlay {
+  display: none;
 }
 
 /* ========================= */
@@ -169,20 +214,120 @@
 /* ========================= */
 
 @media (max-width: 768px) {
+
+  /* ---------- Sidebar ---------- */
+
   .admin-sidebar {
-    width: 200px;
+    width: 240px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.18);
+    z-index: 1000;
   }
 
-  .admin-main {
-    width: calc(100% - 200px);
-    margin-left: 200px;
+  .admin-sidebar.admin-sidebar-open {
+    transform: translateX(0);
   }
+
+  /* ---------- Sidebar Close ---------- */
+
+  .admin-sidebar-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    margin-left: auto;
+
+    border: 1px solid #374151;
+    border-radius: 7px;
+
+    background: transparent;
+    color: #ffffff;
+
+    font-size: 24px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+  }
+
+  .admin-sidebar-close:hover {
+    background-color: #1f2937;
+  }
+
+  /* ---------- Overlay ---------- */
+
+  .admin-sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+
+    background-color: rgba(17, 24, 39, 0.5);
+
+    z-index: 999;
+  }
+
+  /* ---------- Main ---------- */
+
+  .admin-main {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  /* ---------- Header ---------- */
 
   .admin-header {
     padding: 0 20px;
   }
 
+  .admin-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ---------- Content ---------- */
+
   .admin-content {
     padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .admin-sidebar {
+    width: 260px;
+  }
+
+  .admin-header {
+    padding: 0 14px;
+  }
+
+  .admin-header-title h1 {
+    font-size: 19px;
+  }
+
+  .admin-user-info {
+    gap: 8px;
+  }
+
+  .admin-user-info span:first-child {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .admin-user-info span:last-child {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .admin-content {
+    padding: 14px 10px;
   }
 }
